@@ -1,13 +1,15 @@
-name: JabberPoint tests
+name: Compile JabberPoint
 
 on:
   workflow_dispatch:
   push:
     branches:
       - main
+      - dev
   pull_request:
     branches:
       - main
+      - dev
 
 jobs:
   build:
@@ -21,3 +23,17 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Install dependencies
+        run: mvn install --batch-mode --update-snapshots
+
+      - name: Compile project
+        run: mvn compile
