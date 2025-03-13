@@ -40,7 +40,7 @@ jobs:
       - name: Verify file existence
         run: ls -lah
 
-            - name: Check Java formatting
+      - name: Check Java formatting
         run: |
           JAVA_FILES=$(find src -name "*.java")
           if [ -n "$JAVA_FILES" ]; then
