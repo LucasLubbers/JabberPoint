@@ -1,6 +1,7 @@
 name: Google Java Format Check
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
