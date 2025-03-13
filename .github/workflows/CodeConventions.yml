@@ -40,11 +40,15 @@ jobs:
       - name: Verify file existence
         run: ls -lah
 
-      - name: Check Java formatting
+            - name: Check Java formatting
         run: |
           JAVA_FILES=$(find src -name "*.java")
           if [ -n "$JAVA_FILES" ]; then
-            java -jar google-java-format.jar --dry-run --set-exit-if-changed $JAVA_FILES
+            java -jar google-java-format.jar --dry-run --set-exit-if-changed $JAVA_FILES || (
+              echo "Code is not formatted correctly. Run the following command locally to fix it:"
+              echo "java -jar google-java-format.jar --replace $(find src -name '*.java')"
+              exit 1
+            )
           else
             echo "No Java files found, skipping formatting check."
           fi
