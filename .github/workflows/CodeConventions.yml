@@ -33,7 +33,12 @@ jobs:
 
       - name: Download google-java-format (if not cached)
         if: steps.cache-gjf.outputs.cache-hit != 'true'
-        run: curl -LJO https://github.com/google/google-java-format/releases/download/v1.17.0/google-java-format-1.17.0-all-deps.jar -o google-java-format.jar
+        run: |
+          curl -LJO https://github.com/google/google-java-format/releases/download/v1.17.0/google-java-format-1.17.0-all-deps.jar
+          mv google-java-format-1.17.0-all-deps.jar google-java-format.jar
+
+      - name: Verify file existence
+        run: ls -lah
 
       - name: Check Java formatting
         run: |
