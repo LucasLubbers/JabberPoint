@@ -1,0 +1,55 @@
+name: Google Java Format Check
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  check-style:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Cache google-java-format
+        id: cache-gjf
+        uses: actions/cache@v3
+        with:
+          path: google-java-format.jar
+          key: google-java-format-1.17.0
+
+      - name: Download google-java-format (if not cached)
+        if: steps.cache-gjf.outputs.cache-hit != 'true'
+        run: |
+          curl -LJO https://github.com/google/google-java-format/releases/download/v1.17.0/google-java-format-1.17.0-all-deps.jar
+          mv google-java-format-1.17.0-all-deps.jar google-java-format.jar
+
+      - name: Verify file existence
+        run: ls -lah
+
+      - name: Check Java formatting
+        run: |
+          JAVA_FILES=$(find src -name "*.java")
+          if [ -n "$JAVA_FILES" ]; then
+            java -jar google-java-format.jar --dry-run --set-exit-if-changed $JAVA_FILES || (
+              echo "Code is not formatted correctly. Run the following command locally to fix it:"
+              echo "java -jar google-java-format.jar --replace $(find src -name '*.java')"
+              exit 1
+            )
+          else
+            echo "No Java files found, skipping formatting check."
+          fi
