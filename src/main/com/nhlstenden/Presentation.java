@@ -1,10 +1,12 @@
 import java.util.ArrayList;
 
-
 /**
  * <p>Presentation houdt de slides in de presentatie bij.</p>
- * <p>Er is slechts één instantie van deze klasse aanwezig.</p>
- * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
+ * <p>Er is slechts Ã©Ã©n instantie van deze klasse aanwezig.</p>
+ *
+ * @author Ian F. Darwin, ian@darwinsys.com
+ * @author Gert Florijn
+ * @author Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
  * @version 1.2 2003/11/19 Sylvia Stuurman
  * @version 1.3 2004/08/17 Sylvia Stuurman
@@ -12,8 +14,8 @@ import java.util.ArrayList;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-
 public class Presentation {
+
 	private String showTitle; // de titel van de presentatie
 	private ArrayList<Slide> showList = null; // een ArrayList met de Slides
 	private int currentSlideNumber = 0; // het slidenummer van de huidige Slide
@@ -45,12 +47,12 @@ public class Presentation {
 		this.slideViewComponent = slideViewerComponent;
 	}
 
-	// geef het nummer van de huidige slide
+	// Geef het nummer van de huidige slide
 	public int getSlideNumber() {
 		return currentSlideNumber;
 	}
 
-	// verander het huidige-slide-nummer en laat het aan het window weten.
+	// Verander het huidige-slide-nummer en laat het aan het window weten.
 	public void setSlideNumber(int number) {
 		currentSlideNumber = number;
 		if (slideViewComponent != null) {
@@ -58,16 +60,16 @@ public class Presentation {
 		}
 	}
 
-	// ga naar de vorige slide tenzij je aan het begin van de presentatie bent
+	// Ga naar de vorige slide tenzij je aan het begin van de presentatie bent
 	public void prevSlide() {
 		if (currentSlideNumber > 0) {
 			setSlideNumber(currentSlideNumber - 1);
-	    }
+		}
 	}
 
 	// Ga naar de volgende slide tenzij je aan het einde van de presentatie bent.
 	public void nextSlide() {
-		if (currentSlideNumber < (showList.size()-1)) {
+		if (currentSlideNumber < (showList.size() - 1)) {
 			setSlideNumber(currentSlideNumber + 1);
 		}
 	}
@@ -85,10 +87,10 @@ public class Presentation {
 
 	// Geef een slide met een bepaald slidenummer
 	public Slide getSlide(int number) {
-		if (number < 0 || number >= getSize()){
+		if (number < 0 || number >= getSize()) {
 			return null;
-	    }
-			return (Slide)showList.get(number);
+		}
+		return showList.get(number);
 	}
 
 	// Geef de huidige Slide

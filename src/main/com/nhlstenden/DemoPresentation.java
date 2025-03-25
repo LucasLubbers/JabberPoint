@@ -1,5 +1,9 @@
-/** Een ingebouwde demo-presentatie
- * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
+/**
+ * Een ingebouwde demo-presentatie
+ *
+ * @author Ian F. Darwin, ian@darwinsys.com
+ * @author Gert Florijn
+ * @author Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
  * @version 1.2 2003/11/19 Sylvia Stuurman
  * @version 1.3 2004/08/17 Sylvia Stuurman
@@ -7,13 +11,13 @@
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-
 class DemoPresentation extends Accessor {
 
+	@Override
 	public void loadFile(Presentation presentation, String unusedFilename) {
 		presentation.setTitle("Demo Presentation");
-		Slide slide;
-		slide = new Slide();
+
+		Slide slide = new Slide();
 		slide.setTitle("JabberPoint");
 		slide.append(1, "Het Java Presentatie Tool");
 		slide.append(2, "Copyright (c) 1996-2000: Ian Darwin");
@@ -48,6 +52,7 @@ class DemoPresentation extends Accessor {
 		presentation.append(slide);
 	}
 
+	@Override
 	public void saveFile(Presentation presentation, String unusedFilename) {
 		throw new IllegalStateException("Save As->Demo! aangeroepen");
 	}
