@@ -1,9 +1,9 @@
 import java.io.IOException;
 
 /**
- * <p>Een Accessor maakt het mogelijk om gegevens voor een presentatie
- * te lezen of te schrijven.</p>
- * <p>Niet-abstracte subklassen moeten de load en de save methode implementeren.</p>
+ * Een Accessor maakt het mogelijk om gegevens voor een presentatie te lezen of te schrijven.
+ *
+ * <p>Niet-abstracte subklassen moeten de load en de save methode implementeren.
  *
  * @author Ian F. Darwin, ian@darwinsys.com
  * @author Gert Florijn
@@ -17,17 +17,16 @@ import java.io.IOException;
  */
 public abstract class Accessor {
 
-	public static final String DEMO_NAME = "Demonstratie presentatie";
-	public static final String DEFAULT_EXTENSION = ".xml";
+  public static final String DEMO_NAME = "Demonstratie presentatie";
+  public static final String DEFAULT_EXTENSION = ".xml";
 
-	public static Accessor getDemoAccessor() {
-		return new DemoPresentation();
-	}
+  public static Accessor getDemoAccessor() {
+    return new DemoPresentation();
+  }
 
-	public Accessor() {
-	}
+  public Accessor() {}
 
-	abstract public void loadFile(Presentation p, String fn) throws IOException;
+  public abstract void loadFile(Presentation p, String fn) throws IOException;
 
-	abstract public void saveFile(Presentation p, String fn) throws IOException;
+  public abstract void saveFile(Presentation p, String fn) throws IOException;
 }
