@@ -1,3 +1,5 @@
+package nhlstenden;
+
 import java.io.IOException;
 
 /**
