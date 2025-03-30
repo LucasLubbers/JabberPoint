@@ -1,3 +1,5 @@
+package com.nhlstenden.factory_method;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
@@ -17,7 +19,7 @@ import java.awt.image.ImageObserver;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-public abstract class SlideItem extends S{
+public abstract class SlideItem {
 
   private int level = 0; // het level van het slideitem
 

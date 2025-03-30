@@ -52,24 +52,26 @@ public class BitmapItem extends SlideItem {
 
   // geef de bounding box van de afbeelding
   public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle) {
+    int width = bufferedImage != null ? bufferedImage.getWidth(observer) : 0;
+    int height = bufferedImage != null ? bufferedImage.getHeight(observer) : 0;
     return new Rectangle(
         (int) (myStyle.indent * scale),
         0,
-        (int) (bufferedImage.getWidth(observer) * scale),
-        ((int) (myStyle.leading * scale)) + (int) (bufferedImage.getHeight(observer) * scale));
+        (int) (width * scale),
+        (int) (myStyle.leading * scale) + (int) (height * scale));
   }
 
   // teken de afbeelding
   public void draw(int x, int y, float scale, Graphics g, Style myStyle, ImageObserver observer) {
-    int width = x + (int) (myStyle.indent * scale);
-    int height = y + (int) (myStyle.leading * scale);
-    g.drawImage(
-        bufferedImage,
-        width,
-        height,
-        (int) (bufferedImage.getWidth(observer) * scale),
-        (int) (bufferedImage.getHeight(observer) * scale),
-        observer);
+    if (bufferedImage != null) {
+      g.drawImage(
+          bufferedImage,
+          x + (int) (myStyle.indent * scale),
+          y + (int) (myStyle.leading * scale),
+          (int) (bufferedImage.getWidth(observer) * scale),
+          (int) (bufferedImage.getHeight(observer) * scale),
+          observer);
+    }
   }
 
   @Override
