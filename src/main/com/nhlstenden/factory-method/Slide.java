@@ -2,6 +2,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 import java.util.Vector;
+import com.nhlstenden.factory-method.SlideItemFactory;
 
 /**
  * Een slide. Deze klasse heeft tekenfunctionaliteit.
@@ -30,6 +31,13 @@ public class Slide {
   // Voeg een SlideItem toe
   public void append(SlideItem anItem) {
     items.addElement(anItem);
+  }
+
+  // Maak een SlideItem met de factory en voeg het toe
+  public void append(String type, int level, String content) {
+    SlideItemFactory factory = SlideItemFactory.getFactory(type);
+    SlideItem item = factory.createSlideItem(level, content);
+    append(item);
   }
 
   // Geef de titel van de slide
