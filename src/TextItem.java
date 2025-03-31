@@ -1,7 +1,3 @@
-package com.nhlstenden.factory_method;
-
-import main.com.nhlstenden.SlideItem;
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;

@@ -1,5 +1,3 @@
-package main.com.nhlstenden;
-
 import java.awt.Color;
 import java.awt.Font;
 
