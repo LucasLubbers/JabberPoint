@@ -1,5 +1,3 @@
-package nhlstenden;
-
 import java.awt.Frame;
 import javax.swing.JOptionPane;
 

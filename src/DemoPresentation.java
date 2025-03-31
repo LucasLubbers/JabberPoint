@@ -1,5 +1,3 @@
-package nhlstenden;
-
 /**
  * Een ingebouwde demo-presentatie
  *

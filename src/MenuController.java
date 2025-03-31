@@ -1,5 +1,3 @@
-package nhlstenden;
-
 import java.awt.Frame;
 import java.awt.Menu;
 import java.awt.MenuBar;
