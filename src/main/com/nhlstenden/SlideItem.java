@@ -1,4 +1,4 @@
-package com.nhlstenden.factory_method;
+package main.com.nhlstenden;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;

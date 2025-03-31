@@ -1,3 +1,7 @@
+package com.nhlstenden.factory_method;
+
+import main.com.nhlstenden.SlideItem;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -25,7 +29,8 @@ import java.util.List;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-public class TextItem extends SlideItem {
+public class TextItem extends SlideItem
+{
 
   private String text;
 
@@ -88,7 +93,7 @@ public class TextItem extends SlideItem {
     Graphics2D g2d = (Graphics2D) g;
     FontRenderContext frc = g2d.getFontRenderContext();
     LineBreakMeasurer measurer = new LineBreakMeasurer(attrStr.getIterator(), frc);
-    float wrappingWidth = (Slide.WIDTH - s.indent) * scale;
+    float wrappingWidth = (Slide.WIDTH - s.indent) * scale; // Ensure Slide.WIDTH is defined
     while (measurer.getPosition() < getText().length()) {
       TextLayout layout = measurer.nextLayout(wrappingWidth);
       layouts.add(layout);
