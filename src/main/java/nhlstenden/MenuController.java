@@ -1,4 +1,4 @@
-package nhlstenden;
+package main.java.nhlstenden;
 
 import java.awt.Frame;
 import java.awt.Menu;
@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import javax.swing.JOptionPane;
+import main.java.nhlstenden.memento.CareTaker;
 
 /**
  * De controller voor het menu
@@ -25,121 +26,119 @@ import javax.swing.JOptionPane;
  */
 public class MenuController extends MenuBar {
 
-  private Frame parent; // het frame, alleen gebruikt als ouder voor de Dialogs
-  private Presentation presentation; // Er worden commando's gegeven aan de presentatie
+    private Frame parent; // het frame, alleen gebruikt als ouder voor de Dialogs
+    private Presentation presentation; // Er worden commando's gegeven aan de presentatie
+    private CareTaker careTaker = new CareTaker(); // Memento CareTaker for saving states
 
-  private static final long serialVersionUID = 227L;
+    private static final long serialVersionUID = 227L;
 
-  protected static final String ABOUT = "About";
-  protected static final String FILE = "File";
-  protected static final String EXIT = "Exit";
-  protected static final String GOTO = "Go to";
-  protected static final String HELP = "Help";
-  protected static final String NEW = "New";
-  protected static final String NEXT = "Next";
-  protected static final String OPEN = "Open";
-  protected static final String PAGENR = "Page number?";
-  protected static final String PREV = "Prev";
-  protected static final String SAVE = "Save";
-  protected static final String VIEW = "View";
+    protected static final String ABOUT = "About";
+    protected static final String FILE = "File";
+    protected static final String EXIT = "Exit";
+    protected static final String GOTO = "Go to";
+    protected static final String HELP = "Help";
+    protected static final String NEW = "New";
+    protected static final String NEXT = "Next";
+    protected static final String OPEN = "Open";
+    protected static final String PAGENR = "Page number?";
+    protected static final String PREV = "Prev";
+    protected static final String SAVE = "Save";
+    protected static final String VIEW = "View";
 
-  protected static final String TESTFILE = "test.xml";
-  protected static final String SAVEFILE = "dump.xml";
+    protected static final String TESTFILE = "test.xml";
+    protected static final String SAVEFILE = "dump.xml";
 
-  protected static final String IOEX = "IO Exception: ";
-  protected static final String LOADERR = "Load Error";
-  protected static final String SAVEERR = "Save Error";
+    protected static final String IOEX = "IO Exception: ";
+    protected static final String LOADERR = "Load Error";
+    protected static final String SAVEERR = "Save Error";
 
-  public MenuController(Frame frame, Presentation pres) {
-    parent = frame;
-    presentation = pres;
+    public MenuController(Frame frame, Presentation pres) {
+        parent = frame;
+        presentation = pres;
 
-    MenuItem menuItem;
-    Menu fileMenu = new Menu(FILE);
-    fileMenu.add(menuItem = mkMenuItem(OPEN));
-    menuItem.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent actionEvent) {
+        MenuItem menuItem;
+        Menu fileMenu = new Menu(FILE);
+        fileMenu.add(menuItem = mkMenuItem(OPEN));
+        menuItem.addActionListener(e -> {
             presentation.clear();
             Accessor xmlAccessor = new XMLAccessor();
             try {
-              xmlAccessor.loadFile(presentation, TESTFILE);
-              presentation.setSlideNumber(0);
+                xmlAccessor.loadFile(presentation, TESTFILE);
+                presentation.setSlideNumber(0);
             } catch (IOException exc) {
-              JOptionPane.showMessageDialog(parent, IOEX + exc, LOADERR, JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(parent, IOEX + exc, LOADERR, JOptionPane.ERROR_MESSAGE);
             }
             parent.repaint();
-          }
         });
-    fileMenu.add(menuItem = mkMenuItem(NEW));
-    menuItem.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent actionEvent) {
+
+        fileMenu.add(menuItem = mkMenuItem(NEW));
+        menuItem.addActionListener(e -> {
             presentation.clear();
             parent.repaint();
-          }
         });
-    fileMenu.add(menuItem = mkMenuItem(SAVE));
-    menuItem.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent e) {
+
+        fileMenu.add(menuItem = mkMenuItem(SAVE));
+        menuItem.addActionListener(e -> {
             Accessor xmlAccessor = new XMLAccessor();
             try {
-              xmlAccessor.saveFile(presentation, SAVEFILE);
+                xmlAccessor.saveFile(presentation, SAVEFILE);
             } catch (IOException exc) {
-              JOptionPane.showMessageDialog(parent, IOEX + exc, SAVEERR, JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(parent, IOEX + exc, SAVEERR, JOptionPane.ERROR_MESSAGE);
             }
-          }
         });
-    fileMenu.addSeparator();
-    fileMenu.add(menuItem = mkMenuItem(EXIT));
-    menuItem.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent actionEvent) {
-            presentation.exit(0);
-          }
-        });
-    add(fileMenu);
 
-    Menu viewMenu = new Menu(VIEW);
-    viewMenu.add(menuItem = mkMenuItem(NEXT));
-    menuItem.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent actionEvent) {
-            presentation.nextSlide();
-          }
-        });
-    viewMenu.add(menuItem = mkMenuItem(PREV));
-    menuItem.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent actionEvent) {
-            presentation.prevSlide();
-          }
-        });
-    viewMenu.add(menuItem = mkMenuItem(GOTO));
-    menuItem.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent actionEvent) {
+        fileMenu.addSeparator();
+        fileMenu.add(menuItem = mkMenuItem(EXIT));
+        menuItem.addActionListener(e -> presentation.exit(0));
+        add(fileMenu);
+
+        Menu viewMenu = new Menu(VIEW);
+        viewMenu.add(menuItem = mkMenuItem(NEXT));
+        menuItem.addActionListener(e -> presentation.nextSlide());
+
+        viewMenu.add(menuItem = mkMenuItem(PREV));
+        menuItem.addActionListener(e -> presentation.prevSlide());
+
+        viewMenu.add(menuItem = mkMenuItem(GOTO));
+        menuItem.addActionListener(e -> {
             String pageNumberStr = JOptionPane.showInputDialog((Object) PAGENR);
             int pageNumber = Integer.parseInt(pageNumberStr);
             presentation.setSlideNumber(pageNumber - 1);
-          }
         });
-    add(viewMenu);
+        add(viewMenu);
 
-    Menu helpMenu = new Menu(HELP);
-    helpMenu.add(menuItem = mkMenuItem(ABOUT));
-    menuItem.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent actionEvent) {
-            AboutBox.show(parent);
-          }
+        Menu helpMenu = new Menu(HELP);
+        helpMenu.add(menuItem = mkMenuItem(ABOUT));
+        menuItem.addActionListener(e -> AboutBox.show(parent));
+        setHelpMenu(helpMenu); // nodig for portability (Motif, etc.).
+
+        // State Menu for Memento Pattern
+        Menu stateMenu = new Menu("State");
+
+        MenuItem saveStateItem = mkMenuItem("Save State");
+        saveStateItem.addActionListener(e -> {
+            careTaker.saveState(presentation);
+            JOptionPane.showMessageDialog(parent, "Presentation state saved!");
         });
-    setHelpMenu(helpMenu); // nodig for portability (Motif, etc.).
-  }
+        stateMenu.add(saveStateItem);
 
-  // een menu-item aanmaken
-  public MenuItem mkMenuItem(String name) {
-    return new MenuItem(name, new MenuShortcut(name.charAt(0)));
-  }
+        MenuItem restoreStateItem = mkMenuItem("Restore State");
+        restoreStateItem.addActionListener(e -> {
+            if (careTaker.hasSavedState()) {
+                careTaker.restoreState(presentation);
+                parent.repaint();
+                JOptionPane.showMessageDialog(parent, "Presentation state restored!");
+            } else {
+                JOptionPane.showMessageDialog(parent, "No saved state found.");
+            }
+        });
+        stateMenu.add(restoreStateItem);
+
+        add(stateMenu);
+    }
+
+    // een menu-item aanmaken
+    public MenuItem mkMenuItem(String name) {
+        return new MenuItem(name, new MenuShortcut(name.charAt(0)));
+    }
 }

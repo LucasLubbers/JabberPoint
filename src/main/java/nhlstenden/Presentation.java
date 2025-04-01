@@ -1,22 +1,8 @@
-package nhlstenden;
+package main.java.nhlstenden;
 
 import java.util.ArrayList;
+import main.java.nhlstenden.memento.PresentationMemento;
 
-/**
- * Presentation houdt de slides in de presentatie bij.
- *
- * <p>Er is slechts één instantie van deze klasse aanwezig.
- *
- * @author Ian F. Darwin, ian@darwinsys.com
- * @author Gert Florijn
- * @author Sylvia Stuurman
- * @version 1.1 2002/12/17 Gert Florijn
- * @version 1.2 2003/11/19 Sylvia Stuurman
- * @version 1.3 2004/08/17 Sylvia Stuurman
- * @version 1.4 2007/07/16 Sylvia Stuurman
- * @version 1.5 2010/03/03 Sylvia Stuurman
- * @version 1.6 2014/05/16 Sylvia Stuurman
- */
 public class Presentation {
 
   private String showTitle; // de titel van de presentatie
@@ -44,6 +30,14 @@ public class Presentation {
 
   public void setTitle(String nt) {
     showTitle = nt;
+  }
+
+  public ArrayList<Slide> getShowList() {
+    return this.showList;
+  }
+
+  public void setShowList(ArrayList<Slide> showList) {
+    this.showList = showList;
   }
 
   public void setShowView(SlideViewerComponent slideViewerComponent) {
@@ -78,9 +72,9 @@ public class Presentation {
   }
 
   // Verwijder de presentatie, om klaar te zijn voor de volgende
-  void clear() {
-    showList = new ArrayList<Slide>();
-    setSlideNumber(-1);
+  public void clear() {
+    showList = new ArrayList<>();
+    setSlideNumber(0);
   }
 
   // Voeg een slide toe aan de presentatie
@@ -90,7 +84,10 @@ public class Presentation {
 
   // Geef een slide met een bepaald slidenummer
   public Slide getSlide(int number) {
-    if (number < 0 || number >= getSize()) {
+    if (number < 0) {
+      return showList.isEmpty() ? null : showList.get(0);
+    }
+    if (number >= getSize()) {
       return null;
     }
     return showList.get(number);
@@ -103,5 +100,16 @@ public class Presentation {
 
   public void exit(int n) {
     System.exit(n);
+  }
+
+  // Create Memento of the current state
+  public PresentationMemento createMemento() {
+    return new PresentationMemento(currentSlideNumber, new ArrayList<>(showList));
+  }
+
+  // Restore state from a Memento
+  public void restoreStateFromMemento(PresentationMemento memento) {
+    this.currentSlideNumber = memento.getSavedSlideNumber();
+    this.showList = memento.getSavedShowList();
   }
 }

@@ -1,4 +1,4 @@
-package nhlstenden;
+package main.java.nhlstenden;
 
 import java.awt.Color;
 import java.awt.Dimension;

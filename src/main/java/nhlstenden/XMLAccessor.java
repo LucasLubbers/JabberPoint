@@ -1,4 +1,4 @@
-package nhlstenden;
+package main.java.nhlstenden;
 
 import java.io.File;
 import java.io.FileWriter;

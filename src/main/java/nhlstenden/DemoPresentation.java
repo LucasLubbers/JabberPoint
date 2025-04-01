@@ -1,4 +1,4 @@
-package nhlstenden;
+package main.java.nhlstenden;
 
 /**
  * Een ingebouwde demo-presentatie

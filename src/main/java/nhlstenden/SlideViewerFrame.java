@@ -1,4 +1,4 @@
-package nhlstenden;
+package main.java.nhlstenden;
 
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
