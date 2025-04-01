@@ -37,7 +37,7 @@ public class MenuController extends MenuBar {
     protected static final String GOTO = "Go to";
 
     protected static final String ADD_TEXT = "Add Text Item";
-    protected static final String REMOVE_LAST = "Remove Last Item";
+    protected static final String ADD_IMAGE = "Add Image Item";
 
     protected static final String ABOUT = "About";
     protected static final String TESTFILE = "test.xml";
@@ -96,13 +96,22 @@ public class MenuController extends MenuBar {
 
     private Menu createEditMenu() {
         Menu editMenu = new Menu(EDIT);
-        MenuItem menuItem;
 
-        editMenu.add(menuItem = mkMenuItem(ADD_TEXT));
-        menuItem.addActionListener(e -> addTextItem());
+        // Create separate menu items
+        MenuItem addTextItem = mkMenuItem(ADD_TEXT);
+        MenuItem addImageItem = mkMenuItem(ADD_IMAGE);
+
+        // Add them to the menu
+        editMenu.add(addTextItem);
+        editMenu.add(addImageItem);
+
+        // Assign separate action listeners
+        addTextItem.addActionListener(e -> addTextItem());
+        addImageItem.addActionListener(e -> addBitmapItem());
 
         return editMenu;
     }
+
 
     private Menu createHelpMenu() {
         Menu helpMenu = new Menu(HELP);
@@ -182,15 +191,18 @@ public class MenuController extends MenuBar {
             return; // Stop als de invoer geen getal is
         }
 
-        // Vraag de gebruiker om de tekst
-        String text = JOptionPane.showInputDialog("Enter Bitmap for the new item:");
+        // Vraag de gebruiker om de bestandsnaam van de afbeelding
+        String imageName = JOptionPane.showInputDialog("Enter the file path for the bitmap:");
 
-        if (text != null && !text.trim().isEmpty()) {
-            presentation.getCurrentSlide().appendTextItem(level, text);
-            parent.repaint();
+        if (imageName != null && !imageName.trim().isEmpty()) {
+            try {
+                presentation.getCurrentSlide().appendBitmapItem(level, imageName);
+                parent.repaint();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(parent, "Failed to add bitmap: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
-
 
     public MenuItem mkMenuItem(String name) {
         return new MenuItem(name, new MenuShortcut(name.charAt(0)));
