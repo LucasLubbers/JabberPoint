@@ -23,7 +23,7 @@ public class Style {
 
   private static final String FONTNAME = "Helvetica";
   public int indent;
-  Color color;
+  public Color color;
   Font font;
   int fontSize;
   public int leading;

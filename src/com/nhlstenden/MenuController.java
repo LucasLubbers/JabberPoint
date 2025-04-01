@@ -170,6 +170,27 @@ public class MenuController extends MenuBar {
         }
     }
 
+    private void addBitmapItem() {
+        // Vraag de gebruiker om een level (moet een getal zijn)
+        String levelInput = JOptionPane.showInputDialog("Enter level (0-5):");
+
+        int level;
+        try {
+            level = Integer.parseInt(levelInput);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(parent, "Invalid level! Please enter a number.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Stop als de invoer geen getal is
+        }
+
+        // Vraag de gebruiker om de tekst
+        String text = JOptionPane.showInputDialog("Enter Bitmap for the new item:");
+
+        if (text != null && !text.trim().isEmpty()) {
+            presentation.getCurrentSlide().appendTextItem(level, text);
+            parent.repaint();
+        }
+    }
+
 
     public MenuItem mkMenuItem(String name) {
         return new MenuItem(name, new MenuShortcut(name.charAt(0)));

@@ -81,14 +81,14 @@ public class TextItem extends SlideItem {
 
   // teken het item
   @Override
-  public void draw(int x, int y, float scale, Graphics g, Style myStyle, ImageObserver o) {
+  public void draw(int x, int y, float scale, Graphics g, Style style, ImageObserver o) {
     if (text == null || text.length() == 0) {
       return;
     }
-    List<TextLayout> layouts = getLayouts(g, myStyle, scale);
-    Point pen = new Point(x + (int) (myStyle.indent * scale), y + (int) (myStyle.leading * scale));
+    List<TextLayout> layouts = getLayouts(g, style, scale);
+    Point pen = new Point(x + (int) (style.indent * scale), y + (int) (style.leading * scale));
     Graphics2D g2d = (Graphics2D) g;
-    g2d.setColor(myStyle.color);
+    g2d.setColor(style.color);
     Iterator<TextLayout> it = layouts.iterator();
     while (it.hasNext()) {
       TextLayout layout = it.next();
