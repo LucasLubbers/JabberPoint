@@ -1,4 +1,4 @@
-name: Compile JabberPoint
+name: Compile com.nhlstenden.JabberPoint
 
 on:
   workflow_dispatch:

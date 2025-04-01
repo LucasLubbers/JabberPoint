@@ -1,4 +1,6 @@
-public class BitmapItemFactory extends SlideItemFactory
+package com.nhlstenden.factory_method;
+
+public class TextItemFactory extends SlideItemFactory
 {
     @Override
     public SlideItem createSlideItem(int level, String message)

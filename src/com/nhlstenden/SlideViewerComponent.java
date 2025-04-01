@@ -1,3 +1,7 @@
+package com.nhlstenden;
+
+import com.nhlstenden.factory_method.Slide;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -7,7 +11,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 /**
- * SlideViewerComponent is een grafische component die Slides kan laten zien.
+ * com.nhlstenden.SlideViewerComponent is een grafische component die Slides kan laten zien.
  *
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
@@ -66,7 +70,7 @@ public class SlideViewerComponent extends JComponent {
     g.setFont(labelFont);
     g.setColor(COLOR);
     g.drawString(
-        "Slide " + (1 + presentation.getSlideNumber()) + " of " + presentation.getSize(),
+        "com.nhlstenden.factory_method.Slide " + (1 + presentation.getSlideNumber()) + " of " + presentation.getSize(),
         XPOS,
         YPOS);
     Rectangle area = new Rectangle(0, YPOS, getWidth(), (getHeight() - YPOS));

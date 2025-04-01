@@ -1,3 +1,5 @@
+package com.nhlstenden;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -6,6 +8,11 @@ import java.util.Vector;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
+import com.nhlstenden.factory_method.BitmapItem;
+import com.nhlstenden.factory_method.Slide;
+import com.nhlstenden.factory_method.SlideItem;
+import com.nhlstenden.factory_method.TextItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -13,7 +20,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * XMLAccessor, reads and writes XML files
+ * com.nhlstenden.XMLAccessor, reads and writes XML files
  *
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn

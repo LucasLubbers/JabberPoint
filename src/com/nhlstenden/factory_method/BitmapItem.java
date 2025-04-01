@@ -1,3 +1,7 @@
+package com.nhlstenden.factory_method;
+
+import com.nhlstenden.Style;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -51,18 +55,18 @@ public class BitmapItem extends SlideItem {
   }
 
   // geef de bounding box van de afbeelding
-  public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle) {
+  public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style style) {
     return new Rectangle(
-        (int) (myStyle.indent * scale),
+        (int) (style.indent * scale),
         0,
         (int) (bufferedImage.getWidth(observer) * scale),
-        ((int) (myStyle.leading * scale)) + (int) (bufferedImage.getHeight(observer) * scale));
+        ((int) (style.leading * scale)) + (int) (bufferedImage.getHeight(observer) * scale));
   }
 
   // teken de afbeelding
-  public void draw(int x, int y, float scale, Graphics g, Style myStyle, ImageObserver observer) {
-    int width = x + (int) (myStyle.indent * scale);
-    int height = y + (int) (myStyle.leading * scale);
+  public void draw(int x, int y, float scale, Graphics g, Style style, ImageObserver observer) {
+    int width = x + (int) (style.indent * scale);
+    int height = y + (int) (style.leading * scale);
     g.drawImage(
         bufferedImage,
         width,
@@ -74,6 +78,6 @@ public class BitmapItem extends SlideItem {
 
   @Override
   public String toString() {
-    return "BitmapItem[" + getLevel() + "," + imageName + "]";
+    return "com.nhlstenden.factory_method.BitmapItem[" + getLevel() + "," + imageName + "]";
   }
 }

@@ -1,10 +1,12 @@
+package com.nhlstenden;
+
 import java.awt.Color;
 import java.awt.Font;
 
 /**
- * Style staat voor Indent, Color, Font and Leading.
+ * com.nhlstenden.Style staat voor Indent, Color, Font and Leading.
  *
- * <p>De koppeling tussen style-nummer en item-level is nu direct: in Slide wordt de style opgehaald
+ * <p>De koppeling tussen style-nummer en item-level is nu direct: in com.nhlstenden.factory_method.Slide wordt de style opgehaald
  * voor een item met als style-nummer het item-level.
  *
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
@@ -20,11 +22,11 @@ public class Style {
   private static Style[] styles; // de styles
 
   private static final String FONTNAME = "Helvetica";
-  int indent;
+  public int indent;
   Color color;
   Font font;
   int fontSize;
-  int leading;
+  public int leading;
 
   public static void createStyles() {
     styles = new Style[5];

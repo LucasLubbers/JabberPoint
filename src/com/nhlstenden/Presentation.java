@@ -1,7 +1,11 @@
+package com.nhlstenden;
+
+import com.nhlstenden.factory_method.Slide;
+
 import java.util.ArrayList;
 
 /**
- * Presentation houdt de slides in de presentatie bij.
+ * com.nhlstenden.Presentation houdt de slides in de presentatie bij.
  *
  * <p>Er is slechts één instantie van deze klasse aanwezig.
  *
@@ -19,7 +23,7 @@ public class Presentation {
 
   private String showTitle; // de titel van de presentatie
   private ArrayList<Slide> showList = null; // een ArrayList met de Slides
-  private int currentSlideNumber = 0; // het slidenummer van de huidige Slide
+  private int currentSlideNumber = 0; // het slidenummer van de huidige com.nhlstenden.factory_method.Slide
   private SlideViewerComponent slideViewComponent = null; // de viewcomponent voor de Slides
 
   public Presentation() {
@@ -94,7 +98,47 @@ public class Presentation {
     return showList.get(number);
   }
 
-  // Geef de huidige Slide
+  public String getShowTitle()
+  {
+    return this.showTitle;
+  }
+
+  public void setShowTitle(String showTitle)
+  {
+    this.showTitle = showTitle;
+  }
+
+  public ArrayList<Slide> getShowList()
+  {
+    return this.showList;
+  }
+
+  public void setShowList(ArrayList<Slide> showList)
+  {
+    this.showList = showList;
+  }
+
+  public int getCurrentSlideNumber()
+  {
+    return this.currentSlideNumber;
+  }
+
+  public void setCurrentSlideNumber(int currentSlideNumber)
+  {
+    this.currentSlideNumber = currentSlideNumber;
+  }
+
+  public SlideViewerComponent getSlideViewComponent()
+  {
+    return this.slideViewComponent;
+  }
+
+  public void setSlideViewComponent(SlideViewerComponent slideViewComponent)
+  {
+    this.slideViewComponent = slideViewComponent;
+  }
+
+  // Geef de huidige com.nhlstenden.factory_method.Slide
   public Slide getCurrentSlide() {
     return getSlide(currentSlideNumber);
   }

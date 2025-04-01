@@ -1,3 +1,7 @@
+package com.nhlstenden.factory_method;
+
+import com.nhlstenden.Style;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -16,7 +20,7 @@ import java.util.List;
 /**
  * Een tekst item.
  *
- * <p>Een TextItem heeft tekenfunctionaliteit.
+ * <p>Een com.nhlstenden.factory_method.TextItem heeft tekenfunctionaliteit.
  *
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
@@ -56,6 +60,7 @@ public class TextItem extends SlideItem {
   }
 
   // geef de bounding box van het item
+  @Override
   public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle) {
     List<TextLayout> layouts = getLayouts(g, myStyle, scale);
     int xsize = 0, ysize = (int) (myStyle.leading * scale);
@@ -75,6 +80,7 @@ public class TextItem extends SlideItem {
   }
 
   // teken het item
+  @Override
   public void draw(int x, int y, float scale, Graphics g, Style myStyle, ImageObserver o) {
     if (text == null || text.length() == 0) {
       return;
@@ -107,6 +113,6 @@ public class TextItem extends SlideItem {
   }
 
   public String toString() {
-    return "TextItem[" + getLevel() + "," + getText() + "]";
+    return "com.nhlstenden.factory_method.TextItem[" + getLevel() + "," + getText() + "]";
   }
 }

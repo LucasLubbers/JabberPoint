@@ -1,9 +1,13 @@
+package com.nhlstenden.factory_method;
+
+import com.nhlstenden.Style;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 
 /**
- * De abstracte klasse voor een item op een Slide
+ * De abstracte klasse voor een item op een com.nhlstenden.factory_method.Slide
  *
  * <p>
  *
