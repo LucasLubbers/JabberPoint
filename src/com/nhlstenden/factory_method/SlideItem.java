@@ -1,7 +1,6 @@
 package com.nhlstenden.factory_method;
 
 import com.nhlstenden.Style;
-
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
@@ -21,7 +20,7 @@ import java.awt.image.ImageObserver;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-public abstract class SlideItem implements  Cloneable{
+public abstract class SlideItem implements Cloneable {
 
   private int level = 0; // het level van het slideitem
   private String text;
@@ -41,11 +40,11 @@ public abstract class SlideItem implements  Cloneable{
 
   // Geef de bounding box
   public abstract Rectangle getBoundingBox(
-          Graphics g, ImageObserver observer, float scale, Style style);
+      Graphics g, ImageObserver observer, float scale, Style style);
 
   // teken het item
   public abstract void draw(
-          int x, int y, float scale, Graphics g, Style style, ImageObserver observer);
+      int x, int y, float scale, Graphics g, Style style, ImageObserver observer);
 
   @Override
   public SlideItem clone() {

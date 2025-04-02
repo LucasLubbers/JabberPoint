@@ -6,8 +6,8 @@ import javax.swing.JOptionPane;
 /**
  * com.nhlstenden.JabberPoint Main Programma
  *
- * <p>Dit programma is een presentatie-tool waarmee gebruikers verschillende
- * soorten dia-items kunnen toevoegen, zoals tekst en afbeeldingen.
+ * <p>Dit programma is een presentatie-tool waarmee gebruikers verschillende soorten dia-items
+ * kunnen toevoegen, zoals tekst en afbeeldingen.
  *
  * @author Ian F. Darwin
  * @author Gert Florijn

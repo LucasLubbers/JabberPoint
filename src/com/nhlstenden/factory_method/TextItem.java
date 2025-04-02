@@ -1,7 +1,6 @@
 package com.nhlstenden.factory_method;
 
 import com.nhlstenden.Style;
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;

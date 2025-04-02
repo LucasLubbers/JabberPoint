@@ -3,7 +3,8 @@ package com.nhlstenden;
 import java.io.IOException;
 
 /**
- * Een com.nhlstenden.Accessor maakt het mogelijk om gegevens voor een presentatie te lezen of te schrijven.
+ * Een com.nhlstenden.Accessor maakt het mogelijk om gegevens voor een presentatie te lezen of te
+ * schrijven.
  *
  * <p>Niet-abstracte subklassen moeten de load en de save methode implementeren.
  *

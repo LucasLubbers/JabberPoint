@@ -1,7 +1,6 @@
 package com.nhlstenden;
 
 import com.nhlstenden.factory_method.Slide;
-
 import java.util.ArrayList;
 
 /**
@@ -23,7 +22,8 @@ public class Presentation {
 
   private String showTitle; // de titel van de presentatie
   private ArrayList<Slide> showList; // een ArrayList met de Slides
-  private int currentSlideNumber; // het slidenummer van de huidige com.nhlstenden.factory_method.Slide
+  private int
+      currentSlideNumber; // het slidenummer van de huidige com.nhlstenden.factory_method.Slide
   private SlideViewerComponent slideViewComponent; // de viewcomponent voor de Slides
 
   public Presentation() {
@@ -101,18 +101,15 @@ public class Presentation {
     return showList.get(number);
   }
 
-  public String getShowTitle()
-  {
+  public String getShowTitle() {
     return this.showTitle;
   }
 
-  public void setShowTitle(String showTitle)
-  {
+  public void setShowTitle(String showTitle) {
     this.showTitle = showTitle;
   }
 
-  public ArrayList<Slide> getShowList()
-  {
+  public ArrayList<Slide> getShowList() {
     return this.showList;
   }
 
@@ -121,8 +118,7 @@ public class Presentation {
     notifyObservers();
   }
 
-  public int getCurrentSlideNumber()
-  {
+  public int getCurrentSlideNumber() {
     return this.currentSlideNumber;
   }
 
@@ -137,13 +133,11 @@ public class Presentation {
     }
   }
 
-  public SlideViewerComponent getSlideViewComponent()
-  {
+  public SlideViewerComponent getSlideViewComponent() {
     return this.slideViewComponent;
   }
 
-  public void setSlideViewComponent(SlideViewerComponent slideViewComponent)
-  {
+  public void setSlideViewComponent(SlideViewerComponent slideViewComponent) {
     this.slideViewComponent = slideViewComponent;
   }
 

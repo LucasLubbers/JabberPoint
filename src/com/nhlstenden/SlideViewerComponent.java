@@ -1,7 +1,6 @@
 package com.nhlstenden;
 
 import com.nhlstenden.factory_method.Slide;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -70,7 +69,10 @@ public class SlideViewerComponent extends JComponent {
     g.setFont(labelFont);
     g.setColor(COLOR);
     g.drawString(
-        "com.nhlstenden.factory_method.Slide " + (1 + presentation.getSlideNumber()) + " of " + presentation.getSize(),
+        "com.nhlstenden.factory_method.Slide "
+            + (1 + presentation.getSlideNumber())
+            + " of "
+            + presentation.getSize(),
         XPOS,
         YPOS);
     Rectangle area = new Rectangle(0, YPOS, getWidth(), (getHeight() - YPOS));

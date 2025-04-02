@@ -1,11 +1,9 @@
 package com.nhlstenden.factory_method;
 
 import com.nhlstenden.Style;
-
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
-import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -16,7 +14,7 @@ import java.util.Vector;
  * @author Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-public class Slide implements  Cloneable{
+public class Slide implements Cloneable {
 
   public static final int WIDTH = 1200;
   public static final int HEIGHT = 800;

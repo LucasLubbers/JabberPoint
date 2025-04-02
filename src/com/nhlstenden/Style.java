@@ -6,8 +6,9 @@ import java.awt.Font;
 /**
  * com.nhlstenden.Style staat voor Indent, Color, Font and Leading.
  *
- * <p>De koppeling tussen style-nummer en item-level is nu direct: in com.nhlstenden.factory_method.Slide wordt de style opgehaald
- * voor een item met als style-nummer het item-level.
+ * <p>De koppeling tussen style-nummer en item-level is nu direct: in
+ * com.nhlstenden.factory_method.Slide wordt de style opgehaald voor een item met als style-nummer
+ * het item-level.
  *
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
