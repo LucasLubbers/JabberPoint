@@ -22,13 +22,13 @@ import java.util.ArrayList;
 public class Presentation {
 
   private String showTitle; // de titel van de presentatie
-  private ArrayList<Slide> showList = null; // een ArrayList met de Slides
-  private int currentSlideNumber = 0; // het slidenummer van de huidige com.nhlstenden.factory_method.Slide
-  private SlideViewerComponent slideViewComponent = null; // de viewcomponent voor de Slides
+  private ArrayList<Slide> showList; // een ArrayList met de Slides
+  private int currentSlideNumber; // het slidenummer van de huidige com.nhlstenden.factory_method.Slide
+  private SlideViewerComponent slideViewComponent; // de viewcomponent voor de Slides
 
   public Presentation() {
-    slideViewComponent = null;
-    clear();
+    this.showList = new ArrayList<>(); // Initialize showList
+    this.currentSlideNumber = -1;
   }
 
   public Presentation(SlideViewerComponent slideViewerComponent) {
@@ -79,17 +79,17 @@ public class Presentation {
     }
   }
 
-  // Verwijder de presentatie, om klaar te zijn voor de volgende
-  void clear() {
-    showList = new ArrayList<Slide>();
-    setSlideNumber(-1);
+  public void clear() {
+    showList.clear();
+    currentSlideNumber = -1;
+    notifyObservers();
   }
 
   // Voeg een slide toe aan de presentatie
   public void append(Slide slide) {
     showList.add(slide);
     if (showList.size() == 1) { // If it's the first slide, set it as the current slide
-        setSlideNumber(0);
+      setSlideNumber(0);
     }
   }
 
@@ -116,9 +116,9 @@ public class Presentation {
     return this.showList;
   }
 
-  public void setShowList(ArrayList<Slide> showList)
-  {
-    this.showList = showList;
+  public void setShowList(ArrayList<Slide> list) {
+    this.showList = list;
+    notifyObservers();
   }
 
   public int getCurrentSlideNumber()
@@ -126,9 +126,15 @@ public class Presentation {
     return this.currentSlideNumber;
   }
 
-  public void setCurrentSlideNumber(int currentSlideNumber)
-  {
-    this.currentSlideNumber = currentSlideNumber;
+  public void setCurrentSlideNumber(int number) {
+    this.currentSlideNumber = number;
+    notifyObservers();
+  }
+
+  private void notifyObservers() {
+    if (slideViewComponent != null) {
+      slideViewComponent.update(this, getCurrentSlide());
+    }
   }
 
   public SlideViewerComponent getSlideViewComponent()
@@ -141,9 +147,11 @@ public class Presentation {
     this.slideViewComponent = slideViewComponent;
   }
 
-  // Geef de huidige com.nhlstenden.factory_method.Slide
   public Slide getCurrentSlide() {
-    return getSlide(currentSlideNumber);
+    if (currentSlideNumber >= 0 && currentSlideNumber < showList.size()) {
+      return showList.get(currentSlideNumber);
+    }
+    return null;
   }
 
   public void exit(int n) {

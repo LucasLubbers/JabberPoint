@@ -1,5 +1,6 @@
 package com.nhlstenden;
 
+import com.nhlstenden.memento.CareTaker;
 import com.nhlstenden.factory_method.Slide;
 
 import java.awt.Frame;
@@ -23,6 +24,7 @@ public class MenuController extends MenuBar {
     private Frame parent; // Het frame, gebruikt voor dialogs
     private Presentation presentation; // De presentatie waar commando's aan worden gegeven
     private static final long serialVersionUID = 227L;
+    private CareTaker careTaker = new CareTaker(); // Memento CareTaker
 
     protected static final String FILE = "File";
     protected static final String EDIT = "Edit";
@@ -41,6 +43,9 @@ public class MenuController extends MenuBar {
 
     protected static final String ADD_TEXT = "Add Text Item";
     protected static final String ADD_IMAGE = "Add Image Item";
+
+    protected static final String SAVE_STATE = "Save State";
+    protected static final String RESTORE_STATE = "Restore State";
 
     protected static final String ABOUT = "About";
     protected static final String TESTFILE = "test.xml";
@@ -102,22 +107,22 @@ public class MenuController extends MenuBar {
 
     private Menu createEditMenu() {
         Menu editMenu = new Menu(EDIT);
+        MenuItem menuItem;
 
-        // Create separate menu items
-        MenuItem addTextItem = mkMenuItem(ADD_TEXT);
-        MenuItem addImageItem = mkMenuItem(ADD_IMAGE);
+        editMenu.add(menuItem = mkMenuItem(ADD_TEXT));
+        menuItem.addActionListener(e -> addTextItem());
 
-        // Add them to the menu
-        editMenu.add(addTextItem);
-        editMenu.add(addImageItem);
+        editMenu.add(menuItem = mkMenuItem(ADD_IMAGE));
+        menuItem.addActionListener(e -> addBitmapItem());
 
-        // Assign separate action listeners
-        addTextItem.addActionListener(e -> addTextItem());
-        addImageItem.addActionListener(e -> addBitmapItem());
+        editMenu.add(menuItem = mkMenuItem(SAVE_STATE));
+        menuItem.addActionListener(e -> saveState());
 
+        editMenu.add(menuItem = mkMenuItem(RESTORE_STATE));
+        menuItem.addActionListener(e -> restoreState());
+        
         return editMenu;
     }
-
 
     private Menu createHelpMenu() {
         Menu helpMenu = new Menu(HELP);
@@ -178,18 +183,22 @@ public class MenuController extends MenuBar {
     }
 
     private void addTextItem() {
-        ensureSlideExists(); // Ensure a slide exists before adding a text item
+        // Vraag de gebruiker om een level (moet een getal zijn)
+        ensureSlideExists();
 
         String levelInput = JOptionPane.showInputDialog("Enter level (0-5):");
+
         int level;
         try {
             level = Integer.parseInt(levelInput);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(parent, "Invalid level! Please enter a number.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            return; // Stop als de invoer geen getal is
         }
 
+        // Vraag de gebruiker om de tekst
         String text = JOptionPane.showInputDialog("Enter text for the new item:");
+
         if (text != null && !text.trim().isEmpty()) {
             presentation.getCurrentSlide().appendTextItem(level, text);
             parent.repaint();
@@ -219,7 +228,23 @@ public class MenuController extends MenuBar {
         }
     }
 
+
     public MenuItem mkMenuItem(String name) {
         return new MenuItem(name, new MenuShortcut(name.charAt(0)));
+    }
+
+    private void saveState() {
+        careTaker.saveState(presentation);
+        JOptionPane.showMessageDialog(parent, "Presentation state saved!", "Success", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void restoreState() {
+        if (careTaker.hasSavedState()) {
+            careTaker.restoreState(presentation);
+            parent.repaint();
+            JOptionPane.showMessageDialog(parent, "Presentation state restored!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(parent, "No saved state to restore!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
