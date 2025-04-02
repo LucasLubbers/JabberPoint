@@ -5,6 +5,7 @@ import com.nhlstenden.Style;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -15,12 +16,13 @@ import java.util.Vector;
  * @author Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-public class Slide {
+public class Slide implements  Cloneable{
 
   public static final int WIDTH = 1200;
   public static final int HEIGHT = 800;
   protected String title;
   protected Vector<SlideItem> items;
+  private String content;
 
   public Slide() {
     items = new Vector<>();
@@ -78,5 +80,30 @@ public class Slide {
 
   private float getScale(Rectangle area) {
     return Math.min((float) area.width / WIDTH, (float) area.height / HEIGHT);
+  }
+
+  @Override
+  public Slide clone() {
+    try {
+      Slide cloned = (Slide) super.clone();
+      cloned.items = new Vector<>(items.size());
+      for (SlideItem item : items) {
+        cloned.items.add(item.clone());
+      }
+      return cloned;
+    } catch (CloneNotSupportedException e) {
+      throw new AssertionError(); // Should never happen
+    }
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("Slide{title='").append(title).append("', items=[");
+    for (SlideItem item : items) {
+      sb.append(item.toString()).append(", ");
+    }
+    sb.append("]}");
+    return sb.toString();
   }
 }

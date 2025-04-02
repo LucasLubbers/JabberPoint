@@ -21,9 +21,10 @@ import java.awt.image.ImageObserver;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-public abstract class SlideItem {
+public abstract class SlideItem implements  Cloneable{
 
   private int level = 0; // het level van het slideitem
+  private String text;
 
   public SlideItem(int lev) {
     level = lev;
@@ -40,9 +41,23 @@ public abstract class SlideItem {
 
   // Geef de bounding box
   public abstract Rectangle getBoundingBox(
-      Graphics g, ImageObserver observer, float scale, Style style);
+          Graphics g, ImageObserver observer, float scale, Style style);
 
   // teken het item
   public abstract void draw(
-      int x, int y, float scale, Graphics g, Style style, ImageObserver observer);
+          int x, int y, float scale, Graphics g, Style style, ImageObserver observer);
+
+  @Override
+  public SlideItem clone() {
+    try {
+      return (SlideItem) super.clone();
+    } catch (CloneNotSupportedException e) {
+      throw new AssertionError(); // Should never happen
+    }
+  }
+
+  @Override
+  public String toString() {
+    return "SlideItem[" + level + "," + text + "]";
+  }
 }
