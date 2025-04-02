@@ -1,6 +1,7 @@
 package com.nhlstenden;
 
 import com.nhlstenden.memento.CareTaker;
+import com.nhlstenden.factory_method.Slide;
 
 import java.awt.Frame;
 import java.awt.Menu;
@@ -32,6 +33,7 @@ public class MenuController extends MenuBar {
 
     protected static final String OPEN = "Open";
     protected static final String NEW = "New";
+    protected static final String NEW_SLIDE = "New Slide";
     protected static final String SAVE = "Save";
     protected static final String EXIT = "Exit";
 
@@ -40,7 +42,7 @@ public class MenuController extends MenuBar {
     protected static final String GOTO = "Go to";
 
     protected static final String ADD_TEXT = "Add Text Item";
-    protected static final String REMOVE_LAST = "Remove Last Item";
+    protected static final String ADD_IMAGE = "Add Image Item";
 
     protected static final String SAVE_STATE = "Save State";
     protected static final String RESTORE_STATE = "Restore State";
@@ -73,6 +75,9 @@ public class MenuController extends MenuBar {
 
         fileMenu.add(menuItem = mkMenuItem(NEW));
         menuItem.addActionListener(e -> newPresentation());
+
+        fileMenu.add(menuItem = mkMenuItem(NEW_SLIDE));
+        menuItem.addActionListener(e -> setNewSlide());
 
         fileMenu.add(menuItem = mkMenuItem(SAVE));
         menuItem.addActionListener(e -> saveFile());
@@ -107,12 +112,15 @@ public class MenuController extends MenuBar {
         editMenu.add(menuItem = mkMenuItem(ADD_TEXT));
         menuItem.addActionListener(e -> addTextItem());
 
+        editMenu.add(menuItem = mkMenuItem(ADD_IMAGE));
+        menuItem.addActionListener(e -> addBitmapItem());
+
         editMenu.add(menuItem = mkMenuItem(SAVE_STATE));
         menuItem.addActionListener(e -> saveState());
 
         editMenu.add(menuItem = mkMenuItem(RESTORE_STATE));
         menuItem.addActionListener(e -> restoreState());
-
+        
         return editMenu;
     }
 
@@ -143,6 +151,11 @@ public class MenuController extends MenuBar {
         parent.repaint();
     }
 
+    private void setNewSlide() {
+        presentation.append(new Slide());
+        parent.repaint();
+    }
+
     private void saveFile() {
         try {
             new XMLAccessor().saveFile(presentation, SAVEFILE);
@@ -161,8 +174,18 @@ public class MenuController extends MenuBar {
         }
     }
 
+    private void ensureSlideExists() {
+        if (presentation.getCurrentSlide() == null) {
+            Slide newSlide = new Slide(); // Create a new slide
+            presentation.append(newSlide); // Append the slide to the presentation
+            presentation.setSlideNumber(presentation.getSize() - 1); // Set the new slide as the current slide
+        }
+    }
+
     private void addTextItem() {
         // Vraag de gebruiker om een level (moet een getal zijn)
+        ensureSlideExists();
+
         String levelInput = JOptionPane.showInputDialog("Enter level (0-5):");
 
         int level;
@@ -183,23 +206,25 @@ public class MenuController extends MenuBar {
     }
 
     private void addBitmapItem() {
-        // Vraag de gebruiker om een level (moet een getal zijn)
-        String levelInput = JOptionPane.showInputDialog("Enter level (0-5):");
+        ensureSlideExists(); // Ensure a slide exists before adding a bitmap item
 
+        String levelInput = JOptionPane.showInputDialog("Enter level (0-5):");
         int level;
         try {
             level = Integer.parseInt(levelInput);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(parent, "Invalid level! Please enter a number.", "Error", JOptionPane.ERROR_MESSAGE);
-            return; // Stop als de invoer geen getal is
+            return;
         }
 
-        // Vraag de gebruiker om de tekst
-        String text = JOptionPane.showInputDialog("Enter Bitmap for the new item:");
-
-        if (text != null && !text.trim().isEmpty()) {
-            presentation.getCurrentSlide().appendTextItem(level, text);
-            parent.repaint();
+        String imageName = JOptionPane.showInputDialog("Enter the file path for the bitmap:");
+        if (imageName != null && !imageName.trim().isEmpty()) {
+            try {
+                presentation.getCurrentSlide().appendBitmapItem(level, imageName);
+                parent.repaint();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(parent, "Failed to add bitmap: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
