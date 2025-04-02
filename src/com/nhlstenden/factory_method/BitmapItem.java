@@ -39,8 +39,12 @@ public class BitmapItem extends SlideItem {
     imageName = name;
     try {
       bufferedImage = ImageIO.read(new File(imageName));
+      if (bufferedImage == null) {
+        throw new IOException("Invalid image file format.");
+      }
     } catch (IOException e) {
       System.err.println(FILE + imageName + NOTFOUND);
+      bufferedImage = null; // Ensure the object is in a safe state
     }
   }
 
@@ -65,6 +69,10 @@ public class BitmapItem extends SlideItem {
 
   // teken de afbeelding
   public void draw(int x, int y, float scale, Graphics g, Style style, ImageObserver observer) {
+    if (bufferedImage == null) {
+      g.drawString(FILE + imageName + NOTFOUND, x, y);
+      return;
+    }
     int width = x + (int) (style.indent * scale);
     int height = y + (int) (style.leading * scale);
     g.drawImage(
