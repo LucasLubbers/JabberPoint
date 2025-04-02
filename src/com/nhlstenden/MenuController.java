@@ -72,7 +72,7 @@ public class MenuController extends MenuBar {
         menuItem.addActionListener(e -> newPresentation());
 
         fileMenu.add(menuItem = mkMenuItem(NEW_SLIDE));
-        menuItem.addActionListener(e -> setNewSlide())
+        menuItem.addActionListener(e -> setNewSlide());
 
         fileMenu.add(menuItem = mkMenuItem(SAVE));
         menuItem.addActionListener(e -> saveFile());
@@ -146,8 +146,8 @@ public class MenuController extends MenuBar {
         parent.repaint();
     }
 
-    private void setNewSlide(Slide slide) {
-        presentation.append(slide);
+    private void setNewSlide() {
+        presentation.append(new Slide());
         parent.repaint();
     }
 
