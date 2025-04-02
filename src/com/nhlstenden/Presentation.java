@@ -88,6 +88,9 @@ public class Presentation {
   // Voeg een slide toe aan de presentatie
   public void append(Slide slide) {
     showList.add(slide);
+    if (showList.size() == 1) { // If it's the first slide, set it as the current slide
+        setSlideNumber(0);
+    }
   }
 
   // Geef een slide met een bepaald slidenummer
