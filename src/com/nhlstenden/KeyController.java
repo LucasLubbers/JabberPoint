@@ -1,49 +1,51 @@
 package com.nhlstenden;
 
+import com.nhlstenden.command.*;
+import com.nhlstenden.memento.CareTaker;
+import java.awt.Frame;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * This is the com.nhlstenden.KeyController (KeyListener)
- *
- * @author Ian F. Darwin, ian@darwinsys.com
- * @author Gert Florijn
- * @author Sylvia Stuurman
- * @version 1.1 2002/12/17 Gert Florijn
- * @version 1.2 2003/11/19 Sylvia Stuurman
- * @version 1.3 2004/08/17 Sylvia Stuurman
- * @version 1.4 2007/07/16 Sylvia Stuurman
- * @version 1.5 2010/03/03 Sylvia Stuurman
- * @version 1.6 2014/05/16 Sylvia Stuurman
- */
 public class KeyController extends KeyAdapter {
 
-  private Presentation presentation; // Er worden commando's gegeven aan de presentatie
+  private Presentation presentation;
+  private Frame parent;
+  private CareTaker careTaker;
+  private Map<Integer, Command> keyCommandMap;
 
-  public KeyController(Presentation p) {
-    presentation = p;
+  public KeyController(Presentation presentation, Frame parent, CareTaker careTaker) {
+    this.presentation = presentation;
+    this.parent = parent;
+    this.careTaker = careTaker;
+    initializeKeyCommandMap();
+  }
+
+  private void initializeKeyCommandMap() {
+    keyCommandMap = new HashMap<>();
+    keyCommandMap.put(KeyEvent.VK_PAGE_DOWN, presentation::nextSlide);
+    keyCommandMap.put(KeyEvent.VK_DOWN, presentation::nextSlide);
+    keyCommandMap.put(KeyEvent.VK_ENTER, presentation::nextSlide);
+    keyCommandMap.put(KeyEvent.VK_PLUS, presentation::nextSlide);
+    keyCommandMap.put(KeyEvent.VK_PAGE_UP, presentation::prevSlide);
+    keyCommandMap.put(KeyEvent.VK_UP, presentation::prevSlide);
+    keyCommandMap.put(KeyEvent.VK_MINUS, presentation::prevSlide);
+    keyCommandMap.put(KeyEvent.VK_Q, () -> System.exit(0));
+    keyCommandMap.put(KeyEvent.VK_O, new OpenFileCommand(presentation, parent));
+    keyCommandMap.put(KeyEvent.VK_N, new NewPresentationCommand(presentation, parent));
+    keyCommandMap.put(KeyEvent.VK_S, new SaveFileCommand(presentation, parent));
+    keyCommandMap.put(KeyEvent.VK_T, new AddTextItemCommand(presentation, parent));
+    keyCommandMap.put(KeyEvent.VK_I, new AddBitmapItemCommand(presentation, parent));
+    keyCommandMap.put(KeyEvent.VK_F5, new SaveStateCommand(presentation, parent, careTaker));
+    keyCommandMap.put(KeyEvent.VK_F9, new RestoreStateCommand(presentation, parent, careTaker));
   }
 
   @Override
   public void keyPressed(KeyEvent keyEvent) {
-    switch (keyEvent.getKeyCode()) {
-      case KeyEvent.VK_PAGE_DOWN:
-      case KeyEvent.VK_DOWN:
-      case KeyEvent.VK_ENTER:
-      case '+':
-        presentation.nextSlide();
-        break;
-      case KeyEvent.VK_PAGE_UP:
-      case KeyEvent.VK_UP:
-      case '-':
-        presentation.prevSlide();
-        break;
-      case 'q':
-      case 'Q':
-        System.exit(0);
-        break; // wordt nooit bereikt als het goed is
-      default:
-        break;
+    Command command = keyCommandMap.get(keyEvent.getKeyCode());
+    if (command != null) {
+      command.execute();
     }
   }
 }

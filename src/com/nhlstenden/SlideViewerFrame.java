@@ -1,5 +1,7 @@
 package com.nhlstenden;
 
+import com.nhlstenden.memento.CareTaker;
+
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -7,14 +9,6 @@ import javax.swing.JFrame;
 
 /**
  * Het applicatiewindow voor een slideviewcomponent
- *
- * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
- * @version 1.1 2002/12/17 Gert Florijn
- * @version 1.2 2003/11/19 Sylvia Stuurman
- * @version 1.3 2004/08/17 Sylvia Stuurman
- * @version 1.4 2007/07/16 Sylvia Stuurman
- * @version 1.5 2010/03/03 Sylvia Stuurman
- * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 public class SlideViewerFrame extends JFrame {
 
@@ -35,17 +29,16 @@ public class SlideViewerFrame extends JFrame {
   public void setupWindow(SlideViewerComponent slideViewerComponent, Presentation presentation) {
     setTitle(JABTITLE);
     addWindowListener(
-        new WindowAdapter() {
-          public void windowClosing(WindowEvent e) {
-            System.exit(0);
-          }
-        });
+            new WindowAdapter() {
+              public void windowClosing(WindowEvent e) {
+                System.exit(0);
+              }
+            });
     getContentPane().add(slideViewerComponent);
-    addKeyListener(new KeyController(presentation)); // een controller toevoegen
-    setMenuBar(new MenuController(this, presentation)); // nog een controller toevoegen
-    setSize(
-        new Dimension(
-            WIDTH, HEIGHT)); // Dezelfde maten als com.nhlstenden.factory_method.Slide hanteert.
+    CareTaker careTaker = new CareTaker(); // een memento-object aanmaken
+    addKeyListener(new KeyController(presentation, this, careTaker)); // een controller toevoegen
+    setMenuBar(new MenuController(this, presentation).getMenuBar()); // nog een controller toevoegen
+    setSize(new Dimension(WIDTH, HEIGHT)); // Dezelfde maten als com.nhlstenden.factory_method.Slide hanteert.
     setVisible(true);
   }
 }

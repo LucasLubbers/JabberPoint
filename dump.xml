@@ -14,10 +14,6 @@
 <item kind="text" level="3">Volgende slide: PgDn of Enter</item>
 <item kind="text" level="3">Vorige slide: PgUp of up-arrow</item>
 <item kind="text" level="3">Stoppen: q or Q</item>
-<item kind="text" level="5">dsafdasfasd</item>
-<item kind="text" level="0">fdsafdasfds</item>
-<item kind="text" level="0">Hallo</item>
-<item kind="text" level="5">dsfdasfsfdasf</item>
 </slide>
 <slide>
 <title>Demonstratie van levels en stijlen</title>
@@ -35,6 +31,6 @@
 <item kind="text" level="2">gebruik File->Open uit het menu.</item>
 <item kind="text" level="1"> </item>
 <item kind="text" level="1">Dit is het einde van de presentatie.</item>
-<item kind="text" level="1">com.nhlstenden.JabberPoint.jpg</item>
+<item kind="image" level="1">/Users/daanrijfers/JabberPoint/src/com/nhlstenden/kakcavia.jpeg</item>
 </slide>
 </presentation>
