@@ -3,7 +3,6 @@ package com.nhlstenden;
 import com.nhlstenden.accessor.XMLAccessor;
 import com.nhlstenden.command.CommandRegistry;
 import com.nhlstenden.command.KeyController;
-import com.nhlstenden.factory_method.Slide;
 import com.nhlstenden.memento.CareTaker;
 import com.nhlstenden.slide_viewer.SlideViewerFrame;
 import com.nhlstenden.style.StyleFactory;
@@ -53,7 +52,7 @@ public class JabberPoint {
    *
    * @param message the error message to display
    */
-  private static void showErrorDialog(String message) {
+  static void showErrorDialog(String message) {
     JOptionPane.showMessageDialog(null, message, JABERR, JOptionPane.ERROR_MESSAGE);
   }
 }
