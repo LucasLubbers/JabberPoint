@@ -33,7 +33,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Install dependencies
-        run: mvn install --batch-mode --update-snapshots
+        run: mvn install --batch-mode --update-snapshots -X
 
       - name: Compile project
         run: mvn compile
