@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE presentation SYSTEM "jabberpoint.dtd">
 <presentation>
-<showtitle>Schijt</showtitle>
+<showtitle>Hallo</showtitle>
 <slide>
 <title>null</title>
+<item kind="text" level="0">1</item>
 </slide>
 </presentation>
