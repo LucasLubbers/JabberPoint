@@ -2,7 +2,6 @@ package com.nhlstenden.XML;
 
 import com.nhlstenden.Presentation;
 import com.nhlstenden.PresentationSaver;
-
 import java.io.IOException;
 
 public class XMLAccessor {
