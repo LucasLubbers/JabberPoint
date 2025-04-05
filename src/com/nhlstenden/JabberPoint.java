@@ -6,7 +6,6 @@ import com.nhlstenden.command.KeyController;
 import com.nhlstenden.memento.CareTaker;
 import com.nhlstenden.slide_viewer.SlideViewerFrame;
 import com.nhlstenden.style.StyleFactory;
-
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
@@ -24,16 +23,15 @@ public class JabberPoint {
   private static final String JABERR = "Jabberpoint Error ";
   private static final String JABVERSION = "Jabberpoint 1.7 - Enhanced Version";
 
-  /**
-   * The Main Program
-   */
+  /** The Main Program */
   public static void main(String[] argv) {
     StyleFactory.createStyles();
     Presentation presentation = new Presentation();
     SlideViewerFrame slideViewerFrame = new SlideViewerFrame(JABVERSION, presentation);
     CareTaker careTaker = new CareTaker();
 
-    CommandRegistry commandRegistry = new CommandRegistry(presentation, slideViewerFrame, slideViewerFrame, careTaker);
+    CommandRegistry commandRegistry =
+        new CommandRegistry(presentation, slideViewerFrame, slideViewerFrame, careTaker);
     KeyController keyController = new KeyController(commandRegistry.getKeyCommandMapper());
     slideViewerFrame.addKeyListener(keyController);
 

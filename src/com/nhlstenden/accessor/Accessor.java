@@ -1,7 +1,6 @@
 package com.nhlstenden.accessor;
 
 import com.nhlstenden.Presentation;
-
 import java.io.IOException;
 
 public abstract class Accessor {

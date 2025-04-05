@@ -2,15 +2,12 @@ package com.nhlstenden.factory_method;
 
 import com.nhlstenden.style.Style;
 import com.nhlstenden.style.StyleFactory;
-
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 import java.util.Vector;
 
-/**
- * A slide. This class has drawing functionality.
- */
+/** A slide. This class has drawing functionality. */
 public class Slide implements Cloneable {
 
   public static final int WIDTH = 1200;

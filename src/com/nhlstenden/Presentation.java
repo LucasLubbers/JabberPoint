@@ -2,7 +2,6 @@ package com.nhlstenden;
 
 import com.nhlstenden.factory_method.Slide;
 import com.nhlstenden.slide_viewer.SlideViewerComponent;
-
 import java.util.ArrayList;
 import java.util.List;
 
