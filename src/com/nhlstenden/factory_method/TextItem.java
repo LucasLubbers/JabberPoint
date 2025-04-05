@@ -35,30 +35,27 @@ public class TextItem extends SlideItem {
 
   private static final String EMPTYTEXT = "No Text Given";
 
-  // een textitem van level level, met als tekst string
   public TextItem(int level, String string) {
     super(level);
     text = string;
   }
 
-  // een leeg textitem
   public TextItem() {
     this(0, EMPTYTEXT);
   }
 
-  // Geef de tekst
   public String getText() {
     return text == null ? "" : text;
   }
 
-  // geef de AttributedString voor het item
+  // Get the attributed string for this text item
   public AttributedString getAttributedString(Style style, float scale) {
     AttributedString attrStr = new AttributedString(getText());
     attrStr.addAttribute(TextAttribute.FONT, style.getFont(scale), 0, text.length());
     return attrStr;
   }
 
-  // geef de bounding box van het item
+  // Get the bounding box for this text item
   @Override
   public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle) {
     List<TextLayout> layouts = getLayouts(g, myStyle, scale);
@@ -78,7 +75,7 @@ public class TextItem extends SlideItem {
     return new Rectangle((int) (myStyle.getIndent() * scale), 0, xsize, ysize);
   }
 
-  // teken het item
+  // Draw the item
   @Override
   public void draw(int x, int y, float scale, Graphics g, Style style, ImageObserver o) {
     if (text == null || text.length() == 0) {
@@ -98,6 +95,7 @@ public class TextItem extends SlideItem {
     }
   }
 
+  // Get the layouts for this text item
   private List<TextLayout> getLayouts(Graphics g, Style s, float scale) {
     List<TextLayout> layouts = new ArrayList<TextLayout>();
     AttributedString attrStr = getAttributedString(s, scale);

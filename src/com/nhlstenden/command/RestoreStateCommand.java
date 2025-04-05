@@ -16,6 +16,7 @@ public class RestoreStateCommand implements Command {
     this.careTaker = careTaker;
   }
 
+  // This method is called when the command is executed.
   @Override
   public void execute() {
     if (careTaker.hasSavedState()) {

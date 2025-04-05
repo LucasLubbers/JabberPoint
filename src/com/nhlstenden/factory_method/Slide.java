@@ -23,10 +23,12 @@ public class Slide implements Cloneable {
     items.add(anItem);
   }
 
+  // This method is used to add a text item to the slide.
   public void appendTextItem(int level, String message) {
     append(new TextItemFactory().createSlideItem(level, message));
   }
 
+  // This method is used to add a bitmap item to the slide.
   public void appendBitmapItem(int level, String message) {
     append(new BitmapItemFactory().createSlideItem(level, message));
   }
@@ -51,6 +53,7 @@ public class Slide implements Cloneable {
     return items.size();
   }
 
+  // Draws the slide on the given graphics context.
   public void draw(Graphics g, Rectangle area, ImageObserver view) {
     float scale = getScale(area);
     int y = area.y;
@@ -73,6 +76,7 @@ public class Slide implements Cloneable {
     return Math.min((float) area.width / WIDTH, (float) area.height / HEIGHT);
   }
 
+  // Clone method to create a deep copy of the Slide object.
   @Override
   public Slide clone() {
     try {
@@ -83,10 +87,11 @@ public class Slide implements Cloneable {
       }
       return cloned;
     } catch (CloneNotSupportedException e) {
-      throw new AssertionError(); // Should never happen
+      throw new AssertionError();
     }
   }
 
+  // Get the string representation of the slide.
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();

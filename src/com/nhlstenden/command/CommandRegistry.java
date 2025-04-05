@@ -18,6 +18,7 @@ public class CommandRegistry {
     initializeCommands(presentation, parent, slideViewerFrame, careTaker);
   }
 
+  // Method to initialize commands and map them to key events
   private void initializeCommands(
       Presentation presentation,
       Frame parent,

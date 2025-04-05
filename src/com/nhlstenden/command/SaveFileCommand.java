@@ -18,6 +18,7 @@ public class SaveFileCommand implements Command {
     this.parent = parent;
   }
 
+  // This method is called when the command is executed.
   @Override
   public void execute() {
     try {

@@ -13,6 +13,7 @@ public class DeleteSlideCommand implements Command {
     this.parent = parent;
   }
 
+  // This method is called when the command is executed.
   @Override
   public void execute() {
     String input = JOptionPane.showInputDialog(parent, "Enter the slide number to delete:");

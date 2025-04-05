@@ -22,8 +22,11 @@ public class OpenFileCommand implements Command {
     this.slideViewerFrame = slideViewerFrame;
   }
 
+  // This method is called when the command is executed.
   @Override
   public void execute() {
+
+    // Check if there are any saved presentations
     Map<String, String> savedPresentations = NewPresentationCommand.getSavedPresentations();
     if (savedPresentations.isEmpty()) {
       JOptionPane.showMessageDialog(
@@ -31,6 +34,7 @@ public class OpenFileCommand implements Command {
       return;
     }
 
+    // Display a dialog to select a saved presentation
     String[] names = savedPresentations.keySet().toArray(new String[0]);
     String selectedName =
         (String)
@@ -42,6 +46,8 @@ public class OpenFileCommand implements Command {
                 null,
                 names,
                 names[0]);
+
+    // If the user selects a name, load the corresponding file
     if (selectedName != null) {
       String filename = savedPresentations.get(selectedName);
       presentation.clear();

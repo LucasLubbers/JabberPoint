@@ -21,13 +21,16 @@ public class XMLWriter {
       out.print("<showtitle>");
       out.print(presentation.getTitle());
       out.println("</showtitle>");
+      // Iterate through each slide in the presentation
       for (int slideNumber = 0; slideNumber < presentation.getSize(); slideNumber++) {
         Slide slide = presentation.getSlide(slideNumber);
         out.println("<slide>");
         out.println("<title>" + slide.getTitle() + "</title>");
         Vector<SlideItem> slideItems = slide.getSlideItems();
+        // Iterate through each item in the slide
         for (SlideItem slideItem : slideItems) {
           out.print("<item kind=");
+          // Determine the type of slide item and print its details
           if (slideItem instanceof TextItem) {
             out.print("\"text\" level=\"" + slideItem.getLevel() + "\">");
             out.print(((TextItem) slideItem).getText());

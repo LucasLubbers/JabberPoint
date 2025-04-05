@@ -14,6 +14,7 @@ public class AddTextItemCommand implements Command {
     this.parent = parent;
   }
 
+  // This method is called when the command is executed.
   @Override
   public void execute() {
     ensureSlideExists();
@@ -35,6 +36,7 @@ public class AddTextItemCommand implements Command {
     }
   }
 
+  // Ensures that a slide exists in the presentation.
   private void ensureSlideExists() {
     if (presentation.getCurrentSlide() == null) {
       Slide newSlide = new Slide();

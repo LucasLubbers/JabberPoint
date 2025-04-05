@@ -33,6 +33,7 @@ public class SlideViewerComponent extends JComponent {
     this.frame = frame;
   }
 
+  // This method is called when the component is resized.
   @Override
   public Dimension getPreferredSize() {
     return new Dimension(Slide.WIDTH, Slide.HEIGHT);
@@ -45,6 +46,7 @@ public class SlideViewerComponent extends JComponent {
     frame.setTitle(presentation.getTitle());
   }
 
+  // This method is called to paint the component.
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);

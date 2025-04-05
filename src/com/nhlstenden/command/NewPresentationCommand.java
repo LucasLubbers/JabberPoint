@@ -24,14 +24,19 @@ public class NewPresentationCommand implements Command {
     this.slideViewerFrame = slideViewerFrame;
   }
 
+  // This method is called when the command is executed.
   @Override
   public void execute() {
+
+    // Prompt the user for a new presentation name
     String name = JOptionPane.showInputDialog(parent, "Enter the name of the new presentation:");
     if (name != null && !name.trim().isEmpty()) {
       presentation.clear();
       presentation.setTitle(name);
       String filename = name + ".xml";
       savedPresentations.put(name, filename);
+
+      // Save the presentation to a file
       try {
         new XMLAccessor().saveFile(presentation, filename);
       } catch (IOException e) {

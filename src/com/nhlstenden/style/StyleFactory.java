@@ -6,6 +6,7 @@ public class StyleFactory {
 
   private static Style[] styles;
 
+  // This method creates a set of styles with different properties
   public static void createStyles() {
     styles = new Style[5];
     styles[0] = new Style(0, Color.red, 48, 20);
@@ -15,6 +16,7 @@ public class StyleFactory {
     styles[4] = new Style(90, Color.black, 24, 10);
   }
 
+  // This method returns a style based on the level provided
   public static Style getStyle(int level) {
     if (level >= styles.length) {
       level = styles.length - 1;

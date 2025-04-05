@@ -24,6 +24,7 @@ public class SlideViewerFrame extends JFrame {
     setupWindow(slideViewerComponent, presentation);
   }
 
+  // This method sets up the window with the given SlideViewerComponent and Presentation.
   private void setupWindow(SlideViewerComponent slideViewerComponent, Presentation presentation) {
     setTitle(JABTITLE);
     addWindowListener(
@@ -41,6 +42,7 @@ public class SlideViewerFrame extends JFrame {
     setVisible(true);
   }
 
+  // This method updates the title of the window and repaints the content.
   public void update(Presentation presentation, Slide currentSlide) {
     getContentPane().repaint();
     setTitle(JABTITLE + " - " + presentation.getTitle() + " - " + currentSlide.getTitle());

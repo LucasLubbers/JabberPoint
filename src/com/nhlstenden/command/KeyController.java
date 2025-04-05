@@ -10,6 +10,7 @@ public class KeyController extends KeyAdapter {
     this.keyCommandMapper = keyCommandMapper;
   }
 
+  // This method is called when a key is pressed
   @Override
   public void keyPressed(KeyEvent keyEvent) {
     Command command = keyCommandMapper.getCommand(keyEvent.getKeyCode());

@@ -32,7 +32,7 @@ public class BitmapItem extends SlideItem {
   protected static final String FILE = "Bestand ";
   protected static final String NOTFOUND = " niet gevonden";
 
-  // level staat voor het item-level; name voor de naam van het bestand met de afbeelding
+  // Level is for the indentation of the text, name is the name of the image
   public BitmapItem(int level, String name) {
     super(level);
     imageName = name;
@@ -47,17 +47,17 @@ public class BitmapItem extends SlideItem {
     }
   }
 
-  // Een leeg bitmap-item
+  // An empty constructor for the factory method
   public BitmapItem() {
     this(0, null);
   }
 
-  // geef de bestandsnaam van de afbeelding
+  // Give the image name
   public String getName() {
     return imageName;
   }
 
-  // geef de bounding box van de afbeelding
+  // Give the boundingbox of the image
   public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style style) {
     return new Rectangle(
         (int) (style.getIndent() * scale),
@@ -66,7 +66,7 @@ public class BitmapItem extends SlideItem {
         ((int) (style.getLeading() * scale)) + (int) (bufferedImage.getHeight(observer) * scale));
   }
 
-  // teken de afbeelding
+  // Draw the image at the specified location with the given scale
   public void draw(int x, int y, float scale, Graphics g, Style style, ImageObserver observer) {
     if (bufferedImage == null) {
       g.drawString(FILE + imageName + NOTFOUND, x, y);

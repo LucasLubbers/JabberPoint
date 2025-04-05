@@ -16,6 +16,7 @@ public class SaveStateCommand implements Command {
     this.careTaker = careTaker;
   }
 
+  // This method is called when the command is executed.
   @Override
   public void execute() {
     careTaker.saveState(presentation);

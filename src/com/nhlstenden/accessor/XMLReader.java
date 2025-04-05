@@ -74,6 +74,8 @@ public class XMLReader {
         System.err.println(NFE);
       }
     }
+
+    // Determine the type of slide item (text or image)
     String type = attributes.getNamedItem(KIND).getTextContent();
     if (TEXT.equals(type)) {
       slide.append(new TextItem(level, item.getTextContent()));
