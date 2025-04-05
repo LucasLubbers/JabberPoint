@@ -27,14 +27,14 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Install and start Xvfb
+      - name: Install Xvfb (for Swing GUI tests)
         run: |
           sudo apt-get update
           sudo apt-get install -y xvfb
           Xvfb :99 &
           echo "DISPLAY=:99" >> $GITHUB_ENV
 
-      - name: Cache Maven packages
+      - name: Cache Maven
         uses: actions/cache@v3
         with:
           path: ~/.m2
@@ -42,12 +42,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Run tests
+      - name: Run tests with full module access for Mockito
         run: |
           MAVEN_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED \
                       --add-opens java.base/java.util=ALL-UNNAMED \
                       --add-opens java.base/java.io=ALL-UNNAMED \
-                      --add-opens java.desktop/javax.swing=ALL-UNNAMED \
                       --add-opens java.base/java.time=ALL-UNNAMED \
-                      --add-opens java.base/java.nio=ALL-UNNAMED" \
+                      --add-opens java.base/java.nio=ALL-UNNAMED \
+                      --add-opens java.base/java.lang.reflect=ALL-UNNAMED \
+                      --add-opens java.desktop/javax.swing=ALL-UNNAMED \
+                      --add-opens java.desktop/java.awt=ALL-UNNAMED \
+                      --add-opens java.desktop/sun.awt=ALL-UNNAMED" \
           mvn test
