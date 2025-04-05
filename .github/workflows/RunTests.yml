@@ -25,6 +25,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+          java-options: '-Djava.awt.headless=true'
 
       - name: Cache Maven packages
         uses: actions/cache@v3
@@ -35,4 +36,4 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Run tests
-        run: mvn test
+        run: mvn test -DskipTests=false
