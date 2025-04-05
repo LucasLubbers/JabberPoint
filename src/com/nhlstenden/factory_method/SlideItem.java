@@ -1,6 +1,6 @@
 package com.nhlstenden.factory_method;
 
-import com.nhlstenden.Style;
+import com.nhlstenden.style.Style;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;

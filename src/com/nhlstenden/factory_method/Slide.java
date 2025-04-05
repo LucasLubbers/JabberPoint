@@ -1,18 +1,15 @@
 package com.nhlstenden.factory_method;
 
-import com.nhlstenden.Style;
+import com.nhlstenden.style.Style;
+import com.nhlstenden.style.StyleFactory;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 import java.util.Vector;
 
 /**
- * Een slide. Deze klasse heeft tekenfunctionaliteit.
- *
- * @author Ian F. Darwin
- * @author Gert Florijn
- * @author Sylvia Stuurman
- * @version 1.6 2014/05/16 Sylvia Stuurman
+ * A slide. This class has drawing functionality.
  */
 public class Slide implements Cloneable {
 
@@ -20,7 +17,6 @@ public class Slide implements Cloneable {
   public static final int HEIGHT = 800;
   protected String title;
   protected Vector<SlideItem> items;
-  private String content;
 
   public Slide() {
     items = new Vector<>();
@@ -64,13 +60,13 @@ public class Slide implements Cloneable {
 
     if (title != null && !title.isEmpty()) {
       SlideItem titleItem = new TextItem(0, title);
-      Style style = Style.getStyle(titleItem.getLevel());
+      Style style = StyleFactory.getStyle(titleItem.getLevel());
       titleItem.draw(area.x, y, scale, g, style, view);
       y += titleItem.getBoundingBox(g, view, scale, style).height;
     }
 
     for (SlideItem slideItem : items) {
-      Style style = Style.getStyle(slideItem.getLevel());
+      Style style = StyleFactory.getStyle(slideItem.getLevel());
       slideItem.draw(area.x, y, scale, g, style, view);
       y += slideItem.getBoundingBox(g, view, scale, style).height;
     }

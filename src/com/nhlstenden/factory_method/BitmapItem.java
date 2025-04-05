@@ -1,6 +1,6 @@
 package com.nhlstenden.factory_method;
 
-import com.nhlstenden.Style;
+import com.nhlstenden.style.Style;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -60,10 +60,10 @@ public class BitmapItem extends SlideItem {
   // geef de bounding box van de afbeelding
   public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style style) {
     return new Rectangle(
-        (int) (style.indent * scale),
+        (int) (style.getIndent() * scale),
         0,
         (int) (bufferedImage.getWidth(observer) * scale),
-        ((int) (style.leading * scale)) + (int) (bufferedImage.getHeight(observer) * scale));
+        ((int) (style.getLeading() * scale)) + (int) (bufferedImage.getHeight(observer) * scale));
   }
 
   // teken de afbeelding
@@ -72,8 +72,8 @@ public class BitmapItem extends SlideItem {
       g.drawString(FILE + imageName + NOTFOUND, x, y);
       return;
     }
-    int width = x + (int) (style.indent * scale);
-    int height = y + (int) (style.leading * scale);
+    int width = x + (int) (style.getIndent() * scale);
+    int height = y + (int) (style.getLeading() * scale);
     g.drawImage(
         bufferedImage,
         width,

@@ -1,41 +1,59 @@
 package com.nhlstenden;
 
+import com.nhlstenden.accessor.XMLAccessor;
+import com.nhlstenden.command.CommandRegistry;
+import com.nhlstenden.command.KeyController;
+import com.nhlstenden.factory_method.Slide;
+import com.nhlstenden.memento.CareTaker;
+import com.nhlstenden.slide_viewer.SlideViewerFrame;
+import com.nhlstenden.style.StyleFactory;
+
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
- * com.nhlstenden.JabberPoint Main Programma
+ * com.nhlstenden.JabberPoint Main Program
  *
- * <p>Dit programma is een presentatie-tool waarmee gebruikers verschillende soorten dia-items
- * kunnen toevoegen, zoals tekst en afbeeldingen.
+ * <p>This program is a presentation tool that allows users to add various types of slide items,
+ * such as text and images.
  *
- * @author Ian F. Darwin
- * @author Gert Florijn
- * @author Sylvia Stuurman
- * @version 1.7 2025/03/31 Toegevoegd ondersteuning voor meerdere itemtypes
+ * @version 1.7 2025/03/31 Added support for multiple item types
  */
 public class JabberPoint {
 
-  protected static final String IOERR = "IO Error: ";
-  protected static final String JABERR = "Jabberpoint Error ";
-  protected static final String JABVERSION = "Jabberpoint 1.7 - Enhanced Version";
+  private static final String IOERR = "IO Error: ";
+  private static final String JABERR = "Jabberpoint Error ";
+  private static final String JABVERSION = "Jabberpoint 1.7 - Enhanced Version";
 
-  /** Het Main Programma */
+  /**
+   * The Main Program
+   */
   public static void main(String[] argv) {
-
-    Style.createStyles();
+    StyleFactory.createStyles();
     Presentation presentation = new Presentation();
-    new SlideViewerFrame(JABVERSION, presentation);
+    SlideViewerFrame slideViewerFrame = new SlideViewerFrame(JABVERSION, presentation);
+    CareTaker careTaker = new CareTaker();
+
+    CommandRegistry commandRegistry = new CommandRegistry(presentation, slideViewerFrame, slideViewerFrame, careTaker);
+    KeyController keyController = new KeyController(commandRegistry.getKeyCommandMapper());
+    slideViewerFrame.addKeyListener(keyController);
 
     try {
-      if (argv.length == 0) { // Laad een demo-presentatie
-        Accessor.getDemoAccessor().loadFile(presentation, "");
-      } else {
+      if (argv.length > 0) {
         new XMLAccessor().loadFile(presentation, argv[0]);
+        presentation.setSlideNumber(0);
       }
-      presentation.setSlideNumber(0);
     } catch (IOException ex) {
-      JOptionPane.showMessageDialog(null, IOERR + ex, JABERR, JOptionPane.ERROR_MESSAGE);
+      showErrorDialog(IOERR + ex);
     }
+  }
+
+  /**
+   * Shows an error dialog with the specified message.
+   *
+   * @param message the error message to display
+   */
+  private static void showErrorDialog(String message) {
+    JOptionPane.showMessageDialog(null, message, JABERR, JOptionPane.ERROR_MESSAGE);
   }
 }

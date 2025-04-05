@@ -1,6 +1,6 @@
 package com.nhlstenden.factory_method;
 
-import com.nhlstenden.Style;
+import com.nhlstenden.style.Style;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -62,7 +62,7 @@ public class TextItem extends SlideItem {
   @Override
   public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle) {
     List<TextLayout> layouts = getLayouts(g, myStyle, scale);
-    int xsize = 0, ysize = (int) (myStyle.leading * scale);
+    int xsize = 0, ysize = (int) (myStyle.getLeading() * scale);
     Iterator<TextLayout> iterator = layouts.iterator();
     while (iterator.hasNext()) {
       TextLayout layout = iterator.next();
@@ -71,11 +71,11 @@ public class TextItem extends SlideItem {
         xsize = (int) bounds.getWidth();
       }
       if (bounds.getHeight() > 0) {
-        ysize += bounds.getHeight();
+        ysize += (int) bounds.getHeight();
       }
-      ysize += layout.getLeading() + layout.getDescent();
+      ysize += (int) (layout.getLeading() + layout.getDescent());
     }
-    return new Rectangle((int) (myStyle.indent * scale), 0, xsize, ysize);
+    return new Rectangle((int) (myStyle.getIndent() * scale), 0, xsize, ysize);
   }
 
   // teken het item
@@ -85,9 +85,9 @@ public class TextItem extends SlideItem {
       return;
     }
     List<TextLayout> layouts = getLayouts(g, style, scale);
-    Point pen = new Point(x + (int) (style.indent * scale), y + (int) (style.leading * scale));
+    Point pen = new Point(x + (int) (style.getIndent() * scale), y + (int) (style.getLeading() * scale));
     Graphics2D g2d = (Graphics2D) g;
-    g2d.setColor(style.color);
+    g2d.setColor(style.getColor());
     Iterator<TextLayout> it = layouts.iterator();
     while (it.hasNext()) {
       TextLayout layout = it.next();
@@ -103,7 +103,7 @@ public class TextItem extends SlideItem {
     Graphics2D g2d = (Graphics2D) g;
     FontRenderContext frc = g2d.getFontRenderContext();
     LineBreakMeasurer measurer = new LineBreakMeasurer(attrStr.getIterator(), frc);
-    float wrappingWidth = (Slide.WIDTH - s.indent) * scale;
+    float wrappingWidth = (Slide.WIDTH - s.getIndent()) * scale;
     while (measurer.getPosition() < getText().length()) {
       TextLayout layout = measurer.nextLayout(wrappingWidth);
       layouts.add(layout);
