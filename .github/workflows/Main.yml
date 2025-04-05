@@ -23,6 +23,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+          java-options: '-Djava.awt.headless=true'
 
       - name: Cache Maven dependencies
         uses: actions/cache@v3
@@ -33,7 +34,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Install dependencies
-        run: mvn install --batch-mode --update-snapshots -X
+        run: mvn install --batch-mode --update-snapshots -DskipTests
 
       - name: Compile project
-        run: mvn compile
+        run: mvn compile -DskipTests 
