@@ -1,7 +1,10 @@
 package com.nhlstenden;
 
 import com.nhlstenden.style.StyleFactory;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import javax.swing.*;
@@ -11,7 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 class JabberPointTest {
 
@@ -29,22 +31,31 @@ class JabberPointTest {
     @TempDir
     Path tempDir;
 
-    @BeforeAll
-    static void checkHeadless() {
-        // Only skip ALL tests if we're in headless mode AND they require GUI
-        // We'll control this at individual test level instead
+    @BeforeEach
+    void setUp() {
+        // Skip GUI tests in headless environment
+        Assumptions.assumeFalse(
+                GraphicsEnvironment.isHeadless(),
+                "Skipping GUI test in headless environment"
+        );
+        JOptionPane.setRootFrame(null);
+    }
+
+    @AfterEach
+    void tearDown() {
+        if (!GraphicsEnvironment.isHeadless()) {
+            JOptionPane.setRootFrame(null);
+        }
     }
 
     @Test
     void testMainWithoutArguments() {
-        // This test doesn't require GUI
         assertDoesNotThrow(() -> JabberPoint.main(new String[]{}));
         assertNotNull(StyleFactory.getStyle(0));
     }
 
     @Test
     void testMainWithValidXMLFile() throws IOException {
-        // This test doesn't require GUI
         Path xmlFile = tempDir.resolve("test.xml");
         Files.writeString(xmlFile, TEST_XML_CONTENT);
         assertDoesNotThrow(() -> JabberPoint.main(new String[]{xmlFile.toString()}));
@@ -52,13 +63,12 @@ class JabberPointTest {
 
     @Test
     void testMainWithNonExistentFile() {
-        // This test doesn't require GUI
-        assertDoesNotThrow(() -> JabberPoint.main(new String[]{"nonexistent.xml"}));
+        String nonExistentFile = "nonexistent.xml";
+        assertDoesNotThrow(() -> JabberPoint.main(new String[]{nonExistentFile}));
     }
 
     @Test
     void testMainWithInvalidXMLFile() throws IOException {
-        // This test doesn't require GUI
         Path xmlFile = tempDir.resolve("invalid.xml");
         Files.writeString(xmlFile, "This is not valid XML");
         assertDoesNotThrow(() -> JabberPoint.main(new String[]{xmlFile.toString()}));
@@ -66,16 +76,12 @@ class JabberPointTest {
 
     @Test
     void testShowErrorDialog() {
-        // Only skip this specific test in headless mode
-        assumeFalse(GraphicsEnvironment.isHeadless(),
-                "Skipping GUI test in headless environment");
-
+        // This will be skipped in headless mode
         assertDoesNotThrow(() -> JabberPoint.showErrorDialog("Test error message"));
     }
 
     @Test
     void testStyleCreation() {
-        // This test doesn't require GUI
         StyleFactory.createStyles();
         assertNotNull(StyleFactory.getStyle(0));
         assertNotNull(StyleFactory.getStyle(1));
