@@ -35,10 +35,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Run tests with headless display
+      - name: Run tests
         run: |
           sudo apt-get update
           sudo apt-get install -y xvfb
           Xvfb :99 & export DISPLAY=:99
           export DISPLAY=:99
+          MAVEN_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED \
+                --add-opens java.desktop/javax.swing=ALL-UNNAMED" \
           mvn test
+
