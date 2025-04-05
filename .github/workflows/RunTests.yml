@@ -34,19 +34,27 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Run tests
+      - name: Run tests with GUI support
         run: |
-            # First try running with headless mode
-            mvn test -Djava.awt.headless=true -Dmaven.test.failure.ignore=true
+            # Install Xvfb and dependencies
+            sudo apt-get install -y xvfb libxrender1 libxtst6 libxi6
+            
+            # Run tests with virtual display
+            Xvfb :99 -screen 0 1024x768x24 &
+            export DISPLAY=:99
+            
+            # Run tests normally
+            mvn test
+            
+            # Check results (optional - only if you want special handling)
             TEST_RESULT=$?
-
-            # Check surefire reports for test failures (not errors)
-            if grep -q "Failures: [1-9]" target/surefire-reports/*.txt; then
-              echo "Test failures detected (not just errors) - failing workflow"
-              exit 1
-            elif [ $TEST_RESULT -ne 0 ] && ! grep -q "java.awt.HeadlessException" target/surefire-reports/*.txt; then
-              echo "Build error detected - failing workflow"
-              exit 1
-            else
-              echo "Only test errors (no failures) or headless exceptions - allowing workflow to pass"
+            if [ $TEST_RESULT -ne 0 ]; then
+              echo "Tests failed - checking if due to GUI..."
+              if grep -q "java.awt.HeadlessException" target/surefire-reports/*.txt; then
+                echo "ERROR: GUI tests failed despite Xvfb - investigate!"
+                exit 1
+              else
+                echo "Non-GUI test failures detected"
+                exit 1
+              fi
             fi
