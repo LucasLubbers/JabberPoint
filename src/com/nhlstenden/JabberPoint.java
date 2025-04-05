@@ -1,5 +1,7 @@
 package com.nhlstenden;
 
+import com.nhlstenden.XML.XMLAccessor;
+
 import java.io.IOException;
 import javax.swing.JOptionPane;
 

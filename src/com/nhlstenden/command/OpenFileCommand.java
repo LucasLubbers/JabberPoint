@@ -1,7 +1,7 @@
 package com.nhlstenden.command;
 
 import com.nhlstenden.Presentation;
-import com.nhlstenden.XMLAccessor;
+import com.nhlstenden.XML.XMLAccessor;
 import javax.swing.JOptionPane;
 import java.awt.Frame;
 import java.io.IOException;
