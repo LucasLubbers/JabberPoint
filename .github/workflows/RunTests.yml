@@ -14,6 +14,7 @@ on:
 jobs:
   run-tests:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -25,13 +26,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-          java-options: '-Djava.awt.headless=true'
-
-      - name: Install Xvfb
-        run: sudo apt-get install -y xvfb
-
-      - name: Start Xvfb
-        run: Xvfb :99 & export DISPLAY=:99
 
       - name: Cache Maven packages
         uses: actions/cache@v3
@@ -41,5 +35,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Run tests
-        run: mvn test
+      - name: Run tests with headless display
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          Xvfb :99 & export DISPLAY=:99
+          export DISPLAY=:99
+          mvn test
