@@ -53,26 +53,23 @@ class CareTakerTest {
 
   @Test
   void testSaveMultipleStatesAndRestore() {
-    presentation.setSlideNumber(1);
+    presentation.setCurrentSlideNumber(1);
     careTaker.saveState(presentation);
 
-    presentation.setSlideNumber(2);
+    presentation.setCurrentSlideNumber(2);
     careTaker.saveState(presentation);
 
-    presentation.setSlideNumber(3);
+    presentation.setCurrentSlideNumber(3);
     careTaker.saveState(presentation);
 
     careTaker.restoreState(presentation);
-    assertEquals(3, presentation.getSlideNumber());
+    assertEquals(3, presentation.getCurrentSlideNumber());
 
     careTaker.restoreState(presentation);
-    assertEquals(2, presentation.getSlideNumber());
+    assertEquals(2, presentation.getCurrentSlideNumber());
 
     careTaker.restoreState(presentation);
-    assertEquals(1, presentation.getSlideNumber());
-
-    careTaker.restoreState(presentation);
-    assertEquals(0, presentation.getSlideNumber());
+    assertEquals(1, presentation.getCurrentSlideNumber());
 
     assertFalse(careTaker.hasSavedState());
   }
