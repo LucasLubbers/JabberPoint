@@ -3,10 +3,10 @@ package com.nhlstenden.command;
 import com.nhlstenden.Presentation;
 import com.nhlstenden.accessor.XMLAccessor;
 import com.nhlstenden.slide_viewer.SlideViewerFrame;
-import javax.swing.JOptionPane;
 import java.awt.Frame;
 import java.io.IOException;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 public class OpenFileCommand implements Command {
     private Presentation presentation;

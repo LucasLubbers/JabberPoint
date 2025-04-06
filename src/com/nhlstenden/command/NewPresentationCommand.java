@@ -5,6 +5,7 @@ import com.nhlstenden.accessor.XMLAccessor;
 import com.nhlstenden.slide_viewer.SlideViewerFrame;
 import javax.swing.JOptionPane;
 import java.awt.Frame;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,6 +44,17 @@ public class NewPresentationCommand implements Command {
     }
 
     public static Map<String, String> getSavedPresentations() {
+        Map<String, String> savedPresentations = new HashMap<>();
+        File folder = new File("presentations");
+        if (folder.exists() && folder.isDirectory()) {
+            File[] files = folder.listFiles((dir, name) -> name.toLowerCase().endsWith(".xml"));
+            if (files != null) {
+                for (File file : files) {
+                    String name = file.getName().replace(".xml", "");
+                    savedPresentations.put(name, file.getPath());
+                }
+            }
+        }
         return savedPresentations;
     }
 }
