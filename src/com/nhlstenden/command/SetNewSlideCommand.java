@@ -5,17 +5,18 @@ import com.nhlstenden.factory_method.Slide;
 import java.awt.Frame;
 
 public class SetNewSlideCommand implements Command {
-    private Presentation presentation;
-    private Frame parent;
+  private Presentation presentation;
+  private Frame parent;
 
-    public SetNewSlideCommand(Presentation presentation, Frame parent) {
-        this.presentation = presentation;
-        this.parent = parent;
-    }
+  public SetNewSlideCommand(Presentation presentation, Frame parent) {
+    this.presentation = presentation;
+    this.parent = parent;
+  }
 
-    @Override
-    public void execute() {
-        presentation.append(new Slide());
-        parent.repaint();
-    }
+  // This method is called when the command is executed.
+  @Override
+  public void execute() {
+    presentation.append(new Slide());
+    parent.repaint();
+  }
 }

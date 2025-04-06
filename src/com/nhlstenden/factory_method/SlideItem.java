@@ -22,7 +22,7 @@ import java.awt.image.ImageObserver;
  */
 public abstract class SlideItem implements Cloneable {
 
-  private int level = 0; // het level van het slideitem
+  private int level = 0; // Level of the slide item
   private String text;
 
   public SlideItem(int lev) {
@@ -33,19 +33,18 @@ public abstract class SlideItem implements Cloneable {
     this(0);
   }
 
-  // Geef het level
   public int getLevel() {
     return level;
   }
 
-  // Geef de bounding box
   public abstract Rectangle getBoundingBox(
       Graphics g, ImageObserver observer, float scale, Style style);
 
-  // teken het item
+  // Draw the item
   public abstract void draw(
       int x, int y, float scale, Graphics g, Style style, ImageObserver observer);
 
+  // Clone method to create a copy of the SlideItem
   @Override
   public SlideItem clone() {
     try {

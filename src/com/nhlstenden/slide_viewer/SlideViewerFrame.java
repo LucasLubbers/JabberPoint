@@ -1,11 +1,10 @@
 package com.nhlstenden.slide_viewer;
 
 import com.nhlstenden.Presentation;
-import com.nhlstenden.command.KeyController;
 import com.nhlstenden.command.KeyCommandMapper;
+import com.nhlstenden.command.KeyController;
 import com.nhlstenden.factory_method.Slide;
 import com.nhlstenden.menu.MenuController;
-
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -25,14 +24,16 @@ public class SlideViewerFrame extends JFrame {
     setupWindow(slideViewerComponent, presentation);
   }
 
+  // This method sets up the window with the given SlideViewerComponent and Presentation.
   private void setupWindow(SlideViewerComponent slideViewerComponent, Presentation presentation) {
     setTitle(JABTITLE);
-    addWindowListener(new WindowAdapter() {
-      @Override
-      public void windowClosing(WindowEvent e) {
-        System.exit(0);
-      }
-    });
+    addWindowListener(
+        new WindowAdapter() {
+          @Override
+          public void windowClosing(WindowEvent e) {
+            System.exit(0);
+          }
+        });
     getContentPane().add(slideViewerComponent);
     KeyCommandMapper keyCommandMapper = new KeyCommandMapper();
     addKeyListener(new KeyController(keyCommandMapper));
@@ -41,6 +42,7 @@ public class SlideViewerFrame extends JFrame {
     setVisible(true);
   }
 
+  // This method updates the title of the window and repaints the content.
   public void update(Presentation presentation, Slide currentSlide) {
     getContentPane().repaint();
     setTitle(JABTITLE + " - " + presentation.getTitle() + " - " + currentSlide.getTitle());

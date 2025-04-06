@@ -3,11 +3,9 @@ package com.nhlstenden;
 import com.nhlstenden.accessor.XMLAccessor;
 import com.nhlstenden.command.CommandRegistry;
 import com.nhlstenden.command.KeyController;
-import com.nhlstenden.factory_method.Slide;
 import com.nhlstenden.memento.CareTaker;
 import com.nhlstenden.slide_viewer.SlideViewerFrame;
 import com.nhlstenden.style.StyleFactory;
-
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
@@ -25,16 +23,15 @@ public class JabberPoint {
   private static final String JABERR = "Jabberpoint Error ";
   private static final String JABVERSION = "Jabberpoint 1.7 - Enhanced Version";
 
-  /**
-   * The Main Program
-   */
+  /** The Main Program */
   public static void main(String[] argv) {
     StyleFactory.createStyles();
     Presentation presentation = new Presentation();
     SlideViewerFrame slideViewerFrame = new SlideViewerFrame(JABVERSION, presentation);
     CareTaker careTaker = new CareTaker();
 
-    CommandRegistry commandRegistry = new CommandRegistry(presentation, slideViewerFrame, slideViewerFrame, careTaker);
+    CommandRegistry commandRegistry =
+        new CommandRegistry(presentation, slideViewerFrame, slideViewerFrame, careTaker);
     KeyController keyController = new KeyController(commandRegistry.getKeyCommandMapper());
     slideViewerFrame.addKeyListener(keyController);
 
@@ -53,7 +50,7 @@ public class JabberPoint {
    *
    * @param message the error message to display
    */
-  private static void showErrorDialog(String message) {
+  static void showErrorDialog(String message) {
     JOptionPane.showMessageDialog(null, message, JABERR, JOptionPane.ERROR_MESSAGE);
   }
 }
