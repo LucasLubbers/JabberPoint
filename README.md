@@ -30,7 +30,7 @@ mvn clean install -DskipTests
 
 #### Run project through jar file:
 ```bash
-java -jar target/JabberPoint-1.0-SNAPSHOT.jar
+java -jar target/your-project-1.0-SNAPSHOT.jar
 ```
 
 ##### Run the tests:
